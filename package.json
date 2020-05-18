@@ -1,0 +1,19 @@
+{
+  "name": "@real-food/monorepo",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev-client": "yarn workspace @real-food/client dev"
+  },
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lerna": "^3.21.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna run pre-commit"
+    }
+  }
+}
