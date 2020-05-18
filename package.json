@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "lerna run dev --parallel"
+    "dev": "lerna run dev --parallel",
+    "lint": "lerna run lint --parallel"
   },
   "devDependencies": {
     "husky": "^4.2.5",

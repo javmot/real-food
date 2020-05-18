@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
-import { Button } from "theme-ui";
+import { jsx, Button } from "theme-ui";
 
 export default ({ size = "regular", ...props }) => (
   <Button
