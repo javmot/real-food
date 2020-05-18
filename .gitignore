@@ -15,4 +15,8 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
 .eslintcache
+packages/client/.eslintcache
+packages/api/.eslintcache
+packages/theme-ui/.eslintcache
