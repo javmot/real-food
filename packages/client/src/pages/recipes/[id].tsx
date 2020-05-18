@@ -1,7 +1,7 @@
-import Head from "next/head";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import { print } from "graphql/language/printer";
+import Head from "../../components/Head";
 import { RECIPES_IDS_QUERY, RECIPE_QUERY } from "../../lib/queries";
 import graphqlLittle from "../../lib/graphql-little";
 import { RecipeInterface } from "../../config/interfaces";

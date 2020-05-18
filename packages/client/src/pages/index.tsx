@@ -1,5 +1,5 @@
-import Head from "next/head";
 import Link from "next/link";
+import Head from "../components/Head";
 
 export default function Home() {
 	return (
