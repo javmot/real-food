@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { Styled } from "theme-ui";
 import { RecipeItemProps } from "./interfaces";
 
 const RecipeItem = React.memo(
@@ -8,7 +9,7 @@ const RecipeItem = React.memo(
 			<div>
 				<h3>
 					<Link href="/recipes/[id]" as={`/recipes/${id}`}>
-						<a>{title}</a>
+						<Styled.a>{title}</Styled.a>
 					</Link>
 				</h3>
 				<div>

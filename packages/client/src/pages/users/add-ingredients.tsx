@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";
 import { RECIPE_QUERY } from "../../lib/queries";
 import IngredientFormContainer from "../../components/IngredientFormContainer";

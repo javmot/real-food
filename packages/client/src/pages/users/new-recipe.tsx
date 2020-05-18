@@ -1,7 +1,7 @@
-import Head from "next/head";
 import Router from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
+import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";
 import { CREATE_RECIPE_MUTATION, CATEGORIES_QUERY } from "../../lib/queries";
 

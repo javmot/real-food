@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import WebFont from "webfontloader";
 import StyleGuide from "./styleguide/index";
 import ThemeProvider from "./ThemeProvider";
 import * as serviceWorker from "./serviceWorker";
-import WebFont from "webfontloader";
 
 WebFont.load({
   google: {

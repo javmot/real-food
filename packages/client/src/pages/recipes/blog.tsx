@@ -1,4 +1,5 @@
-import Head from "next/head";
+import { Styled } from "theme-ui";
+import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";
 import RecipeListContainer from "../../components/RecipeListContainer";
 
@@ -8,7 +9,7 @@ const Blog = () => {
 			<Head>
 				<title>Recipes Blog</title>
 			</Head>
-			<h1>Recipes Blog</h1>
+			<Styled.h1>Recipes Blog</Styled.h1>
 			<RecipeListContainer />
 		</div>
 	);
