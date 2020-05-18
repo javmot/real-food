@@ -1,7 +1,6 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui";
+import { jsx, Input, Label, Box, Text } from "theme-ui";
 import { useState } from "react";
-import { Input, Label, Box, Text } from "theme-ui";
 
 let idx = 0;
 const unique = (prefix = "styled-field") => `${prefix}-${idx++}`;

@@ -30,7 +30,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "pre-commit": "pretty-quick --staged && lint-staged",
-    "lint": "pretty-quick && eslint src/**/*.{ts,js} --cache --fix"
+    "lint": "pretty-quick && eslint src/**/*.{ts,tsx,js} --cache --fix"
   },
   "browserslist": {
     "production": [
@@ -61,6 +61,6 @@
     "npm": "^6.14.5"
   },
   "lint-staged": {
-    "src/**/*.{ts,js}": "eslint --cache --fix"
+    "src/**/*.{ts,tsx,js}": "eslint --cache --fix"
   }
 }
