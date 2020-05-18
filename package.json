@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev-client": "yarn workspace @real-food/client dev"
+    "dev": "lerna run dev --parallel"
   },
   "devDependencies": {
     "husky": "^4.2.5",
