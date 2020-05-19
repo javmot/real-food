@@ -1,7 +1,6 @@
 import { InputType, Field } from "type-graphql";
 import { Length } from "class-validator";
 import { Ingredient } from "../entities/Ingredient";
-import { UnitEnum } from "../entities/UnitEnum";
 
 @InputType()
 export class IngredientInput implements Partial<Ingredient> {
@@ -15,7 +14,4 @@ export class IngredientInput implements Partial<Ingredient> {
 
 	@Field()
 	quantity!: number;
-
-	@Field((_type) => UnitEnum)
-	unit!: UnitEnum;
 }

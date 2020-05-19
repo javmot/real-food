@@ -11,7 +11,7 @@ const IngredientsSection = ({ ingredients = [] }: IngredientsSectionProps) => {
 			<ul>
 				{ingredients.map((ingredient) => (
 					<li key={ingredient.externalId}>
-						{ingredient.quantity} {ingredient.unit} {ingredient.name}
+						{ingredient.quantity} gramos {ingredient.name}
 					</li>
 				))}
 			</ul>

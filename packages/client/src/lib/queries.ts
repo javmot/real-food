@@ -36,7 +36,6 @@ const recipeFragments = {
 				externalId
 				name
 				quantity
-				unit
 			}
 		}
 	`,

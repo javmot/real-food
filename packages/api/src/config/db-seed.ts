@@ -7,7 +7,6 @@ import { RecipeCategoryInterface } from "../entities/RecipeCategory";
 import { RecipeInterface } from "../entities/Recipe";
 import { IngredientInterface } from "../entities/Ingredient";
 import { RecipeStepInterface } from "../entities/RecipeStep";
-import { UnitEnum } from "../entities/UnitEnum";
 import { DB_DEV } from "./db";
 
 function getFakeUser(): UserInterface {
@@ -31,7 +30,6 @@ function getFakeIngredients(): IngredientInterface[] {
 		externalId: `${Math.round(faker.random.number(500))}`,
 		name: faker.commerce.product(),
 		quantity: faker.random.number(100),
-		unit: UnitEnum.GRAMS,
 	}));
 }
 

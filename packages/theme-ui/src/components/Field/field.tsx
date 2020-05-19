@@ -1,80 +1,86 @@
 /** @jsx jsx */
-import { jsx, Input, Label, Box, Text } from "theme-ui";
-import { useState } from "react";
+import {
+  jsx,
+  Input,
+  Label,
+  Box,
+  Text,
+  FieldOwnProps,
+  BoxProps,
+} from "theme-ui";
+import React, { useState } from "react";
+import { getMargin } from "../utils";
 
 let idx = 0;
-const unique = (prefix = "styled-field") => `${prefix}-${idx++}`;
+const unique: (prefix: string) => string = (prefix = "styled-field") =>
+  `${prefix}-${idx++}`;
 const getInitialStatus = (initial, error) => {
   if (error) return "error";
 
   return initial;
 };
-export interface FieldProps {
-  label: string;
+export interface FieldProps extends FieldOwnProps, BoxProps {
   as?: any;
-  name?: string;
   status?: string;
   error?: string;
-  children?: React.ReactNode;
-  defaultValue?: string;
-  onFocus?: (event: any) => void;
-  onChange?: (event: any) => void;
-  onBlur?: (event: any) => void;
 }
 
-const Field = ({
-  as: Control,
-  name,
-  status: initialStatus,
-  label,
-  error,
-  ...props
-}: FieldProps) => {
-  const [status, setStatus] = useState(getInitialStatus(initialStatus, error));
-  const id = unique(name);
+const Field = React.forwardRef(
+  ({
+    as: Control,
+    name,
+    status: initialStatus,
+    label,
+    error,
+    ...props
+  }: FieldProps) => {
+    const [status, setStatus] = useState(
+      getInitialStatus(initialStatus, error)
+    );
+    const id = unique(name);
 
-  const onFocusChange = (focus) => (e) => {
-    setStatus(focus ? "focus" : getInitialStatus(initialStatus, error));
+    const onFocusChange = (focus) => (e) => {
+      setStatus(focus ? "focus" : getInitialStatus(initialStatus, error));
 
-    if (focus && props.onFocus) props.onFocus(e);
-    if (!focus && props.onBlur) props.onBlur(e);
-  };
+      if (focus && props.onFocus) props.onFocus(e);
+      if (!focus && props.onBlur) props.onBlur(e);
+    };
 
-  return (
-    <Box>
-      <Label
-        sx={{
-          variant: `forms.label.status.${status}`,
-        }}
-        {...props}
-        htmlFor={id}
-      >
-        {label}
-      </Label>
-      <Control
-        sx={{
-          variant: `forms.status.${status}`,
-        }}
-        {...props}
-        onFocus={onFocusChange(true)}
-        onBlur={onFocusChange(false)}
-        id={id}
-        name={id}
-      ></Control>
-      {error && (
-        <Text
+    return (
+      <Box {...getMargin(props)}>
+        <Label
           sx={{
-            textAlign: "right",
+            variant: `forms.label.status.${status}`,
           }}
-          pt={1}
-          variant="error"
+          htmlFor={id}
         >
-          {error}
-        </Text>
-      )}
-    </Box>
-  );
-};
+          {label}
+        </Label>
+        <Control
+          sx={{
+            variant: `forms.status.${status}`,
+          }}
+          {...props}
+          onFocus={onFocusChange(true)}
+          onBlur={onFocusChange(false)}
+          id={id}
+          name={id}
+        />
+        {error && (
+          <Text
+            sx={{
+              textAlign: "right",
+            }}
+            pt={1}
+            variant="error"
+          >
+            {error}
+          </Text>
+        )}
+      </Box>
+    );
+  }
+);
 
 Field.defaultProps = {
   as: Input,

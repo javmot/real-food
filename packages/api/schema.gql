@@ -73,14 +73,12 @@ type Ingredient implements IFoodItem {
 	id: ID!
 	name: String!
 	quantity: Float!
-	unit: UnitEnum!
 }
 
 input IngredientInput {
 	externalId: String!
 	name: String!
 	quantity: Float!
-	unit: UnitEnum!
 }
 
 type Mutation {
@@ -140,11 +138,6 @@ type RecipeStep {
 	id: ID!
 	img: String
 	title: String!
-}
-
-enum UnitEnum {
-	GRAMS
-	TABLESPOON
 }
 
 """
