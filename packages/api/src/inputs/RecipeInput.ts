@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { InputType, Field } from "type-graphql";
 import { Length } from "class-validator";
 import { Ref } from "../types";

@@ -10,7 +10,7 @@ const IngredientsSection = ({ ingredients = [] }: IngredientsSectionProps) => {
 			<h3>{ingredients.length} Ingredients</h3>
 			<ul>
 				{ingredients.map((ingredient) => (
-					<li key={ingredient.id}>
+					<li key={ingredient.externalId}>
 						{ingredient.quantity} {ingredient.unit} {ingredient.name}
 					</li>
 				))}

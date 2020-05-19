@@ -3,7 +3,7 @@ import { IFoodItem } from "./IFoodItem";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
 export class FoodItem {
-	id!: string;
+	externalId!: string;
 
 	name!: string;
 }

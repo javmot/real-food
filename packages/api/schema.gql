@@ -23,7 +23,7 @@ scalar DateTime
 The bedca Food Group
 """
 type FoodGroup {
-	id: ID!
+	externalId: ID!
 	name: String!
 }
 
@@ -45,7 +45,7 @@ type FoodInfo {
 The bedca Food Item
 """
 type FoodItem implements IFoodItem {
-	id: ID!
+	externalId: ID!
 	name: String!
 }
 
@@ -53,7 +53,7 @@ type FoodItem implements IFoodItem {
 The bedca Food Value
 """
 type FoodValue {
-	bedcaId: String!
+	externalId: String!
 	id: ID!
 	name: String
 	total: Float
@@ -61,7 +61,7 @@ type FoodValue {
 }
 
 interface IFoodItem {
-	id: ID!
+	externalId: ID!
 	name: String!
 }
 
@@ -69,6 +69,7 @@ interface IFoodItem {
 The bedca Food Item
 """
 type Ingredient implements IFoodItem {
+	externalId: ID!
 	id: ID!
 	name: String!
 	quantity: Float!
@@ -76,7 +77,7 @@ type Ingredient implements IFoodItem {
 }
 
 input IngredientInput {
-	id: String!
+	externalId: String!
 	name: String!
 	quantity: Float!
 	unit: UnitEnum!
@@ -86,6 +87,7 @@ type Mutation {
 	addIngredient(id: String!, ingredient: IngredientInput!): Recipe
 	createRecipe(input: CreateRecipeInput!): Recipe!
 	createRecipeCategory(input: CreateRecipeCategoryInput!): RecipeCategory!
+	removeIngredient(id: String!, ingredient: IngredientInput!): Recipe
 	signup(input: UserInput!): User!
 }
 

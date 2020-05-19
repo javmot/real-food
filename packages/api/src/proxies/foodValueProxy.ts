@@ -10,7 +10,7 @@ export default function foodValueProxy(
 			return foodValueBedca && foodValueBedca.c_id && foodValueBedca.c_id[0];
 		},
 
-		get bedcaId(): string {
+		get externalId(): string {
 			return foodValueBedca && foodValueBedca.c_id && foodValueBedca.c_id[0];
 		},
 

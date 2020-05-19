@@ -12,7 +12,7 @@ const Blog = () => {
 		CATEGORIES_QUERY
 	);
 
-	const onSubmit = (formData) =>
+	const onSubmit: (data: any) => void = (formData) => {
 		addTodo({
 			variables: {
 				input: {
@@ -21,6 +21,7 @@ const Blog = () => {
 				},
 			},
 		});
+	};
 
 	if (loading) return <h1>Loading</h1>;
 	if (error) return <h1>Error</h1>;

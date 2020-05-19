@@ -10,7 +10,7 @@ export interface RecipeInterface {
 }
 
 export interface FoodInterface {
-	id: string;
+	externalId: string;
 	name: string;
 }
 
