@@ -8,7 +8,7 @@ const getFoodValues = (foodValues: Array<any>, profile: number) => {
 
 	return infoProfile.length && foodValues.length
 		? infoProfile.map((valueId) =>
-				foodValues.find((value) => value.bedcaId === valueId)
+				foodValues.find((value) => value.externalId === valueId)
 		  )
 		: foodValues;
 };

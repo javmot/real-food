@@ -6,7 +6,7 @@ export default function foodGroupProxy(
 	if (!foodGroupBedca) return null;
 
 	return {
-		get id(): string {
+		get externalId(): string {
 			return foodGroupBedca && foodGroupBedca.fg_id && foodGroupBedca.fg_id[0];
 		},
 

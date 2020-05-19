@@ -8,7 +8,7 @@ export class FoodValue {
 
 	@Field()
 	@prop()
-	bedcaId!: string;
+	externalId!: string;
 
 	@Field({ nullable: true })
 	@prop()

@@ -33,7 +33,10 @@ const recipeFragments = {
 		fragment RecipeIngredients on Recipe {
 			ingredients {
 				id
+				externalId
 				name
+				quantity
+				unit
 			}
 		}
 	`,
@@ -96,7 +99,7 @@ export const CATEGORIES_QUERY = gql`
 export const GET_FOOD_GROUPS = gql`
 	query FoodGroups {
 		foodGroups {
-			id
+			externalId
 			name
 		}
 	}
@@ -105,7 +108,7 @@ export const GET_FOOD_GROUPS = gql`
 export const GET_FOOD_GROUP = gql`
 	query FoodGroup($input: String!) {
 		foodGroup(input: $input) {
-			id
+			externalId
 			name
 		}
 	}

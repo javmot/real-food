@@ -10,14 +10,14 @@ export const onSubmitIngredient = (
 	formData: IngredientFormData
 ) => {
 	const ingredientSelected = ingredients.find(
-		(ingredient) => ingredient.id === formData.ingredientId
+		(ingredient) => ingredient.externalId === formData.ingredientId
 	);
 	if (ingredientSelected) {
 		addIngredientMutation({
 			variables: {
 				id: recipeId,
 				ingredient: {
-					id: ingredientSelected.id,
+					externalId: ingredientSelected.externalId,
 					name: ingredientSelected.name,
 					quantity: parseFloat(formData.quantity),
 					unit: "GRAMS",

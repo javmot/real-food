@@ -20,7 +20,7 @@ const FoodSelect = ({
 			>
 				<option>{placeholder}</option>
 				{data.map((food) => (
-					<option key={food.id} value={food.id}>
+					<option key={food.externalId} value={food.externalId}>
 						{food.name}
 					</option>
 				))}

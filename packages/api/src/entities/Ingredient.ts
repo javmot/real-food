@@ -1,14 +1,18 @@
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, ID } from "type-graphql";
 import { prop } from "@typegoose/typegoose";
 import { IFoodItem } from "./IFoodItem";
 import { UnitEnum } from "./UnitEnum";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
 export class Ingredient {
-	id?: string;
+	@prop({ required: true })
+	externalId!: string;
 
 	@prop({ required: true })
 	name!: string;
+
+	@Field((_type) => ID)
+	id?: string;
 
 	@Field()
 	@prop({ required: true })

@@ -21,6 +21,55 @@ import BedcaAPI from "../dataSources/BedcaAPI";
 import { IngredientInput } from "../inputs/IngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
 
+const ADD = true;
+const REMOVE = false;
+
+const parseFoodValues = (ingredient: IngredientInput, add: boolean) => (
+	values: Array<any>
+) => {
+	const operator = add ? 1 : -1;
+	return values.map((value) => ({
+		...value,
+		total: operator * ((value.total * ingredient.quantity) / 100),
+	}));
+};
+
+const updateIngredient = async (
+	id: string,
+	ingredient: IngredientInput,
+	{ dataSources }: Context,
+	add: boolean = ADD
+) => {
+	const recipe = await RecipeModel.findOne({
+		_id: id,
+		// TODO: user,
+	});
+	if (!recipe) return null;
+
+	recipe.ingredients = add
+		? [...recipe.ingredients, ingredient]
+		: recipe.ingredients.filter((i) => {
+				return i.externalId !== ingredient.externalId;
+		  });
+
+	await recipe.save();
+
+	const { foodValues } = recipe.info;
+	const ingredientFoodValues = await requestIngredientValues(
+		ingredient,
+		add,
+		dataSources.bedcaAPI
+	);
+	const newFoodValues = mergeFoodValues([
+		...foodValues,
+		...ingredientFoodValues,
+	]);
+
+	recipe.info.foodValues = newFoodValues;
+
+	return recipe.save();
+};
+
 @Resolver((_of) => Recipe)
 export default class RecipeResolver {
 	@Query((_returns) => [Recipe], { nullable: false })
@@ -74,31 +123,21 @@ export default class RecipeResolver {
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
-	async addIngredient(
+	addIngredient(
 		@Arg("id") id: string,
 		@Arg("ingredient") ingredient: IngredientInput,
-		@Ctx() { dataSources }: Context
+		@Ctx() ctx: Context
 	) {
-		const recipe = await RecipeModel.findOne({
-			_id: id,
-			// TODO: user,
-		});
-		if (!recipe) return null;
+		return updateIngredient(id, ingredient, ctx, ADD);
+	}
 
-		const { foodValues } = recipe.info;
-		const ingredientFoodValues = await recipeInfoHook(
-			[ingredient],
-			dataSources.bedcaAPI
-		);
-		const newFoodValues = mergeFoodValues([
-			...foodValues,
-			...ingredientFoodValues,
-		]);
-
-		recipe.ingredients = [...recipe.ingredients, ingredient];
-		recipe.info.foodValues = newFoodValues;
-
-		return recipe.save();
+	@Mutation((_returns) => Recipe, { nullable: true })
+	removeIngredient(
+		@Arg("id") id: string,
+		@Arg("ingredient") ingredient: IngredientInput,
+		@Ctx() ctx: Context
+	) {
+		return updateIngredient(id, ingredient, ctx, REMOVE);
 	}
 
 	@FieldResolver((_type) => RecipeCategory)
@@ -119,11 +158,11 @@ function mergeFoodValues(foodValues: any) {
 			total: memo.total + value.total,
 		};
 	};
-	const grouped = groupBy(foodValues, (value) => value.id);
+	const grouped = groupBy(foodValues, (value) => value.externalId);
 
 	return map(grouped, (group) => {
 		return group.reduce(totalReducer, {
-			bedcaId: group[0].bedcaId,
+			externalId: group[0].externalId,
 			name: group[0].name,
 			unit: group[0].unit,
 			total: 0,
@@ -131,15 +170,13 @@ function mergeFoodValues(foodValues: any) {
 	});
 }
 
-function recipeInfoHook(
-	ingredients: Array<IngredientInput>,
+function requestIngredientValues(
+	ingredient: IngredientInput,
+	add: boolean,
 	bedcaApi: BedcaAPI
 ) {
-	return Promise.all(
-		ingredients.map((ingredient) =>
-			bedcaApi
-				.getFood(ingredient.id)
-				.then((foodInfo) => foodInfo && foodInfo.foodValues)
-		)
-	).then((values) => values.flat());
+	return bedcaApi
+		.getFood(ingredient.externalId)
+		.then((foodInfo) => (foodInfo ? foodInfo.foodValues : []))
+		.then(parseFoodValues(ingredient, add));
 }

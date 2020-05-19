@@ -7,7 +7,7 @@ import { UnitEnum } from "../entities/UnitEnum";
 export class IngredientInput implements Partial<Ingredient> {
 	@Field()
 	@Length(1, 255)
-	id!: string;
+	externalId!: string;
 
 	@Field()
 	@Length(1, 255)

@@ -28,6 +28,7 @@ function getFakeCategory(): RecipeCategoryInterface {
 function getFakeIngredients(): IngredientInterface[] {
 	return times(Math.round(faker.random.number(10))).map(() => ({
 		_id: new ObjectID(),
+		externalId: `${Math.round(faker.random.number(500))}`,
 		name: faker.commerce.product(),
 		quantity: faker.random.number(100),
 		unit: UnitEnum.GRAMS,
