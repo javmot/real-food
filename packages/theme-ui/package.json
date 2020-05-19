@@ -32,18 +32,6 @@
     "pre-commit": "pretty-quick --staged && lint-staged",
     "lint": "pretty-quick && eslint src/**/*.{ts,tsx,js} --cache --fix"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
