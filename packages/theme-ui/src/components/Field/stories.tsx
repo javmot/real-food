@@ -41,14 +41,7 @@ export const DefaultValue = () => (
 );
 
 export const SelectComponent = () => (
-  <Field
-    sx={{
-      textAlign: "center",
-    }}
-    {...fieldData}
-    {...actionsData}
-    as={Select}
-  >
+  <Field {...fieldData} {...actionsData} as={Select}>
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>

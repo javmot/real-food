@@ -20,7 +20,6 @@ export const onSubmitIngredient = (
 					externalId: ingredientSelected.externalId,
 					name: ingredientSelected.name,
 					quantity: parseFloat(formData.quantity),
-					unit: "GRAMS",
 				},
 			},
 		});
