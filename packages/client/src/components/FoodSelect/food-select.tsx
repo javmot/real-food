@@ -1,3 +1,4 @@
+import React from "react";
 import withQueryData from "../../lib/with-query-data";
 import { FoodSelectProps } from "./interfaces";
 

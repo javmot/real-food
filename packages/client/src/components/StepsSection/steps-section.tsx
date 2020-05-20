@@ -1,3 +1,4 @@
+import React from "react";
 import { StepsSectionProps } from "./interfaces";
 import withQueryData from "../../lib/with-query-data";
 

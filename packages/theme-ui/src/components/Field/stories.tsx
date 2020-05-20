@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Select } from "theme-ui";
 
-import Field from "./index";
+import { Field } from "./index";
 
 export default {
   component: Field,

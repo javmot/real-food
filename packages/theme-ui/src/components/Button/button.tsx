@@ -10,7 +10,7 @@ interface ButtonProps extends ThemeUIButtonProps {
   size?: string;
 }
 
-const Button = React.forwardRef(
+export const Button = React.forwardRef(
   ({ size = "regular", ...props }: ButtonProps) => (
     <ThemeUIButton
       sx={{
@@ -26,5 +26,3 @@ const Button = React.forwardRef(
 Button.defaultProps = {
   size: "regular",
 };
-
-export default Button;

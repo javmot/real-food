@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery, NetworkStatus } from "@apollo/client";
 import { RECIPES_QUERY } from "../../lib/queries";
 import RecipeList from "../RecipeList";
