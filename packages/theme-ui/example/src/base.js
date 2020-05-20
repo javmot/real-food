@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Box } from "theme-ui";
+import { jsx, Styled, Box } from "@real-food/theme-ui";
 import { TypeScale, TypeStyle, ColorPalette } from "@theme-ui/style-guide";
 
 export default () => (

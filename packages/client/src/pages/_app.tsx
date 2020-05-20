@@ -1,7 +1,7 @@
 import React from "react";
 import whyDidYouRender from "@welldone-software/why-did-you-render";
 import { AppProps } from "next/app";
-import withTheme from "../lib/with-theme";
+import { ThemeProvider, pastelTheme } from "@real-food/theme-ui";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
 	whyDidYouRender(React, {
@@ -9,8 +9,10 @@ if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
 	});
 }
 
-function App({ Component, pageProps }: AppProps) {
-	return <Component {...pageProps} />;
+export default function App({ Component, pageProps }: AppProps) {
+	return (
+		<ThemeProvider theme={pastelTheme}>
+			<Component {...pageProps} />
+		</ThemeProvider>
+	);
 }
-
-export default withTheme(App);

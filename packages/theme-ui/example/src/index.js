@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import WebFont from "webfontloader";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ThemeProvider from "./ThemeProvider";
+import { ThemeProvider, pastelTheme } from "@real-food/theme-ui";
 import Sidebar from "./sidebar";
 import Base from "./base";
 import Forms from "./forms";
@@ -46,7 +46,7 @@ WebFont.load({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider>
+    <ThemeProvider theme={pastelTheme}>
       <StyleGuide />
     </ThemeProvider>
   </React.StrictMode>,

@@ -5,7 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn workspace @real-food/theme-ui build && lerna run dev --parallel",
+    "dev": "lerna run dev --parallel",
     "lint": "lerna run lint --parallel"
   },
   "devDependencies": {

@@ -1,3 +1,5 @@
+/* eslint-disable dot-notation */
+
 const base = {
   space: [0, 4, 8, 12, 20, 28, 36, 48, 72],
   radii: [0, 1, 2, 4],
@@ -55,6 +57,6 @@ const base = {
   },
 };
 // Aliases
-base.sizes.full = "100%";
+base.sizes["full"] = "100%";
 
 export default base;

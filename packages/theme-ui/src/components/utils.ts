@@ -11,3 +11,6 @@ const MRE = /^m[trblxy]?$/;
 
 export const getMargin = getProps((k) => MRE.test(k));
 export const omitMargin = getProps((k) => !MRE.test(k));
+let idx = 0;
+export const unique: (arg: string) => string = (prefix = "") =>
+  `${prefix}${idx++}`;

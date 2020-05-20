@@ -1,8 +1,8 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx, Box, Field } from "@real-food/theme-ui";
 import Router from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
-import { Field } from "@real-food/theme-ui";
 import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";
 import { CREATE_RECIPE_MUTATION, CATEGORIES_QUERY } from "../../lib/queries";
@@ -41,24 +41,35 @@ const Blog = () => {
 			<Head>
 				<title>Create Recipe</title>
 			</Head>
-			<form onSubmit={handleSubmit(onSubmit)}>
-				<Field name="title" label="Titulo" ref={register({ required: true })} />
-				<input name="time" ref={register({ required: true })} />
-				<input
-					type="number"
-					name="servings"
-					ref={register({ required: true })}
-				/>
-				<select name="categoryId" ref={register({ required: true })}>
-					<option>Categories</option>
-					{recipeCategories.map((category) => (
-						<option key={category.id} value={category.id}>
-							{category.title}
-						</option>
-					))}
-				</select>
-				<input type="submit" />
-			</form>
+			<Box
+				sx={{
+					width: 6,
+					m: "0 auto",
+				}}
+			>
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<Field
+						name="title"
+						label="Titulo"
+						ref={register({ required: true })}
+					/>
+					<input name="time" ref={register({ required: true })} />
+					<input
+						type="number"
+						name="servings"
+						ref={register({ required: true })}
+					/>
+					<select name="categoryId" ref={register({ required: true })}>
+						<option>Categories</option>
+						{recipeCategories.map((category) => (
+							<option key={category.id} value={category.id}>
+								{category.title}
+							</option>
+						))}
+					</select>
+					<input type="submit" />
+				</form>
+			</Box>
 		</div>
 	);
 };
