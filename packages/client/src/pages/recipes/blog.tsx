@@ -1,3 +1,4 @@
+import React from "react";
 import { Styled } from "theme-ui";
 import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";

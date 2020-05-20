@@ -25,7 +25,7 @@ export interface FieldProps extends FieldOwnProps, BoxProps {
   error?: string;
 }
 
-const Field = React.forwardRef(
+export const Field = React.forwardRef(
   ({
     as: Control,
     name,
@@ -86,5 +86,3 @@ Field.defaultProps = {
   as: Input,
   status: "normal",
 };
-
-export default Field;

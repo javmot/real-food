@@ -1,5 +1,5 @@
+import React, { FunctionComponent } from "react";
 import { ApolloError } from "@apollo/client";
-import { FunctionComponent } from "react";
 import { AnyProperties } from "../config/interfaces";
 
 interface WithQueryDataProps extends AnyProperties {

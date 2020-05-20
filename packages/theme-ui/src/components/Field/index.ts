@@ -1,3 +1,1 @@
-import Fiels from "./field";
-
-export default Fiels;
+export { Field } from "./field";

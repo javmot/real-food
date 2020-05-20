@@ -1,9 +1,10 @@
+import React from "react";
 import { IngredientsSectionProps } from "./interfaces";
 import withQueryData from "../../lib/with-query-data";
 
 const IngredientsSection = ({ ingredients = [] }: IngredientsSectionProps) => {
 	if (!ingredients.length) {
-		return <div></div>;
+		return <div />;
 	}
 	return (
 		<div>

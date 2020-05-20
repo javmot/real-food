@@ -1,6 +1,8 @@
+import React from "react";
 import Router from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";
+import { Field } from "@real-food/theme-ui";
 import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";
 import { CREATE_RECIPE_MUTATION, CATEGORIES_QUERY } from "../../lib/queries";
@@ -40,7 +42,7 @@ const Blog = () => {
 				<title>Create Recipe</title>
 			</Head>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<input name="title" ref={register({ required: true })} />
+				<Field name="title" label="Titulo" ref={register({ required: true })} />
 				<input name="time" ref={register({ required: true })} />
 				<input
 					type="number"
