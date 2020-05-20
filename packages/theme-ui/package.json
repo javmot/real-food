@@ -14,6 +14,7 @@
   "scripts": {
     "build": "microbundle-crl --no-compress --format modern,cjs",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "dev": "run-s start",
     "prepublish": "run-s build",
     "lint": "eslint . --fix",
     "test": "run-s test:unit test:lint test:build",
@@ -34,6 +35,7 @@
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addons": "^5.3.18",
     "@storybook/preset-create-react-app": "^2.1.2",
+    "@storybook/preset-typescript": "^3.0.0",
     "@storybook/react": "^5.3.18",
     "@types/jest": "^25.1.4",
     "@types/react": "^16.9.27",

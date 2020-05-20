@@ -1,4 +1,9 @@
-export default {
+import { StyledTags } from "theme-ui";
+import { SystemStyleObject } from "@styled-system/css";
+
+const styles: {
+  [P in StyledTags]?: SystemStyleObject;
+} = {
   root: {
     fontFamily: "body",
     lineHeight: "body",
@@ -84,3 +89,5 @@ export default {
     maxWidth: "100%",
   },
 };
+
+export default styles;

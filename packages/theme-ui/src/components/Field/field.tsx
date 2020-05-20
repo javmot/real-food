@@ -8,12 +8,9 @@ import {
   FieldOwnProps,
   BoxProps,
 } from "theme-ui";
-import React, { useState } from "react";
-import { getMargin } from "../utils";
+import React, { useState, MutableRefObject } from "react";
+import { getMargin, unique } from "../utils";
 
-let idx = 0;
-const unique: (prefix: string) => string = (prefix = "styled-field") =>
-  `${prefix}-${idx++}`;
 const getInitialStatus = (initial, error) => {
   if (error) return "error";
 
@@ -26,18 +23,21 @@ export interface FieldProps extends FieldOwnProps, BoxProps {
 }
 
 export const Field = React.forwardRef(
-  ({
-    as: Control,
-    name,
-    status: initialStatus,
-    label,
-    error,
-    ...props
-  }: FieldProps) => {
+  (
+    {
+      as: Control,
+      name,
+      status: initialStatus,
+      label,
+      error,
+      ...props
+    }: FieldProps,
+    ref: MutableRefObject<any>
+  ) => {
     const [status, setStatus] = useState(
       getInitialStatus(initialStatus, error)
     );
-    const id = unique(name);
+    const id = name || unique("styled-field-");
 
     const onFocusChange = (focus) => (e) => {
       setStatus(focus ? "focus" : getInitialStatus(initialStatus, error));
@@ -57,6 +57,7 @@ export const Field = React.forwardRef(
           {label}
         </Label>
         <Control
+          ref={ref}
           sx={{
             variant: `forms.status.${status}`,
           }}

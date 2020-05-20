@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import React from "react";
+import React, { MutableRefObject } from "react";
 import {
   jsx,
   Button as ThemeUIButton,
@@ -11,8 +11,9 @@ interface ButtonProps extends ThemeUIButtonProps {
 }
 
 export const Button = React.forwardRef(
-  ({ size = "regular", ...props }: ButtonProps) => (
+  ({ size = "regular", ...props }: ButtonProps, ref: MutableRefObject<any>) => (
     <ThemeUIButton
+      ref={ref}
       sx={{
         outline: "transparent",
         cursor: "pointer",
