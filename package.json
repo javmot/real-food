@@ -6,7 +6,8 @@
   ],
   "scripts": {
     "dev": "lerna run dev --parallel",
-    "lint": "lerna run lint --parallel"
+    "lint": "lerna run lint --parallel",
+    "styleguide": "yarn workspace @real-food/theme-ui styleguide"
   },
   "devDependencies": {
     "husky": "^4.2.5",
