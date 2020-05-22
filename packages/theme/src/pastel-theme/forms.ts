@@ -25,17 +25,6 @@ export default {
   },
   label: {
     fontWeight: "heading",
-    material: {
-      cursor: "text",
-      transition: "transform 0.15s ease-in-out",
-      zIndex: 0,
-      position: "relative",
-      transform: "translateY(30px)",
-    },
-    materialFocus: {
-      transition: "transform 0.15s ease-in-out",
-      transform: "translateY(0px)",
-    },
     status: {
       normal: {
         color: "text",

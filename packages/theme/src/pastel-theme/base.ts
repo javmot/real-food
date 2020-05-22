@@ -61,6 +61,7 @@ const base = {
   },
 };
 // Aliases
-base.sizes["full"] = "100%";
+base.sizes["full"] = base.sizes[10];
+base.sizes["half"] = base.sizes[5];
 
 export default base;
