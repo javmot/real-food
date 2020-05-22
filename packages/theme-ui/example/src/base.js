@@ -8,7 +8,13 @@ export default () => (
       <Styled.h2>Color Palette</Styled.h2>
       <ColorPalette />
       <Styled.h2>Type Scale</Styled.h2>
-      <TypeScale />
+      <TypeScale
+        sx={{
+          color: "body",
+        }}
+      />
+      <Styled.h2>Links</Styled.h2>
+      <Styled.a>Read More</Styled.a>
       <Styled.h2>Font Styles</Styled.h2>
       <TypeStyle
         fontFamily="heading"
@@ -27,6 +33,9 @@ export default () => (
         fontWeight="body"
         fontSize="3"
         lineHeight="body"
+        sx={{
+          color: "body",
+        }}
       >
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia,
         ullam?

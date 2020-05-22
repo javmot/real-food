@@ -1,22 +1,22 @@
 import Link from "next/link";
 import React from "react";
-import { Styled } from "@real-food/theme-ui";
+import { Styled, StyledLink, Text } from "@real-food/theme-ui";
 import { RecipeItemProps } from "./interfaces";
 
 const RecipeItem = React.memo(
 	({ title, id, category, user }: RecipeItemProps) => {
 		return (
 			<div>
-				<h3>
+				<Styled.h3>
 					<Link href="/recipes/[id]" as={`/recipes/${id}`}>
-						<Styled.a>{title}</Styled.a>
+						<StyledLink>{title}</StyledLink>
 					</Link>
-				</h3>
+				</Styled.h3>
 				<div>
-					<small>Category: {category.title}</small>
+					<Text variant="small">Category: {category.title}</Text>
 				</div>
 				<div>
-					<small>Created by: {user.username}</small>
+					<Text variant="small">Created by: {user.username}</Text>
 				</div>
 			</div>
 		);

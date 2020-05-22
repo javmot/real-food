@@ -12,10 +12,10 @@ export default {
       color: "background",
       bg: "primary",
       "&:hover": {
-        bg: "primaryDark",
+        bg: "primaries.2",
       },
       "&:active": {
-        bg: "primaryLight",
+        bg: "primaries.1",
       },
     },
     outline: {
@@ -24,22 +24,22 @@ export default {
       boxShadow: (theme) =>
         `inset 0 0 0 ${theme.borderWidths[2]}px ${theme.colors.primary}`,
       "&:hover": {
-        bg: "grayLighter",
+        bg: "monocolors.0",
         boxShadow: (theme) =>
-          `inset 0 0 0 ${theme.borderWidths[2]}px ${theme.colors.primaryDark}`,
+          `inset 0 0 0 ${theme.borderWidths[2]}px ${theme.colors.primaries[2]}`,
       },
       "&:active": {
-        bg: "grayLight",
+        bg: "monocolors.1",
       },
     },
-    muted: {
+    secondary: {
       color: "background",
-      bg: "muted",
+      bg: "secondary",
       "&:hover": {
-        bg: "mutedDark",
+        bg: "secondaries.2",
       },
       "&:active": {
-        bg: "mutedLight",
+        bg: "secondaries.0",
       },
     },
   },

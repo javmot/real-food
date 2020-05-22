@@ -38,10 +38,10 @@ export default {
     },
     status: {
       normal: {
-        bolor: "text",
+        color: "body",
       },
       focus: {
-        color: "secondary",
+        color: "action",
       },
       error: {
         color: "error",
@@ -50,10 +50,10 @@ export default {
   },
   status: {
     normal: {
-      borderBottomColor: "grayLight",
+      borderBottomColor: "monocolors.1",
     },
     focus: {
-      borderBottomColor: "secondaryLight",
+      borderBottomColor: "actions.0",
     },
     error: {
       borderBottomColor: "error",

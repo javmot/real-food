@@ -1,4 +1,11 @@
 export default {
+  default: {
+    fontFamily: "body",
+    lineHeight: "body",
+    fontWeight: "body",
+    color: "body",
+    fontSize: 1,
+  },
   heading: {
     fontFamily: "heading",
     lineHeight: "heading",
@@ -6,15 +13,12 @@ export default {
     color: "heading",
     fontSize: 6,
   },
-  body: {
-    fontFamily: "body",
-    lineHeight: "body",
-    fontWeight: "body",
-    color: "body",
-    fontSize: 1,
+  small: {
+    variant: "text.default",
+    fontSize: 0,
   },
   error: {
-    variant: "text.body",
+    variant: "text.default",
     color: "error",
   },
 };

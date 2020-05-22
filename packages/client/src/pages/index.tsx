@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Styled, StyledLink } from "@real-food/theme-ui";
 import Head from "../components/Head";
 
 export default function Home() {
@@ -8,13 +9,13 @@ export default function Home() {
 			<Head>
 				<title>Recipes App</title>
 			</Head>
-			<h1>Recipes App</h1>
+			<Styled.h1>Recipes App</Styled.h1>
 			<Link href="/recipes/blog">
-				<a>Recipes Blog</a>
+				<StyledLink>Recipes Blog</StyledLink>
 			</Link>
 			<br />
 			<Link href="/users/new-recipe">
-				<a>New Recipe</a>
+				<StyledLink>New Recipe</StyledLink>
 			</Link>
 		</>
 	);
