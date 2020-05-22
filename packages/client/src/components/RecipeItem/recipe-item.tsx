@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import { Styled, StyledLink, Text } from "@real-food/theme-ui";
+import { Styled, StyledLink, Text } from "@real-food/theme";
 import { RecipeItemProps } from "./interfaces";
 
 const RecipeItem = React.memo(

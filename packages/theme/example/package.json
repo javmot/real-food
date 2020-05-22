@@ -1,6 +1,6 @@
 {
-  "name": "@real-food/theme-ui-example",
-  "homepage": "https://javiermota.github.io/@real-food/theme-ui",
+  "name": "@real-food/theme-example",
+  "homepage": "https://javiermota.github.io/@real-food/theme",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,7 @@
     "react-scripts": "link:../../../node_modules/react-scripts",
     "react-router-dom": "link:../../../node_modules/react-router-dom",
     "webfontloader": "link:../../../node_modules/webfontloader",
-    "@real-food/theme-ui": "link:.."
+    "@real-food/theme": "link:.."
   },
   "scripts": {
     "start": "node ../../../node_modules/react-scripts/bin/react-scripts.js start",

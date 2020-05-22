@@ -8,7 +8,7 @@ import {
   Grid,
   Button,
   Field,
-} from "@real-food/theme-ui";
+} from "@real-food/theme";
 import Variants from "./variants";
 
 export default () => (

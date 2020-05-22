@@ -21,23 +21,18 @@ export const actionsData = {
   onBlur: action("onBlur"),
 };
 
-export const Default = () => <Field {...fieldData} {...actionsData}></Field>;
+export const Default = () => <Field {...fieldData} {...actionsData} />;
 
 export const Focus = () => (
-  <Field {...fieldData} {...actionsData} status="focus"></Field>
+  <Field {...fieldData} {...actionsData} status="focus" />
 );
 
 export const Error = () => (
-  <Field
-    {...fieldData}
-    {...actionsData}
-    status="error"
-    error="Error Message"
-  ></Field>
+  <Field {...fieldData} {...actionsData} status="error" error="Error Message" />
 );
 
 export const DefaultValue = () => (
-  <Field {...fieldData} {...actionsData} defaultValue="default value"></Field>
+  <Field {...fieldData} {...actionsData} defaultValue="default value" />
 );
 
 export const SelectComponent = () => (

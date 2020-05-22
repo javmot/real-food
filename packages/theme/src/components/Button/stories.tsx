@@ -20,10 +20,10 @@ export const actionsData = {
 
 export const Default = () => (
   <>
-    <Button {...buttonData} {...actionsData}></Button>
+    <Button {...buttonData} {...actionsData} />
   </>
 );
 
 export const Secondary = () => (
-  <Button {...buttonData} {...actionsData} variant="secondary"></Button>
+  <Button {...buttonData} {...actionsData} variant="secondary" />
 );

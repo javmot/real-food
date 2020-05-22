@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Styled, StyledLink } from "@real-food/theme-ui";
+import { Styled, StyledLink } from "@real-food/theme";
 import Head from "../components/Head";
 
 export default function Home() {

@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Field } from "@real-food/theme-ui";
+import { jsx, Box, Field } from "@real-food/theme";
 import Router from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { useForm } from "react-hook-form";

@@ -1,10 +1,10 @@
 {
-  "name": "@real-food/theme-ui",
+  "name": "@real-food/theme",
   "version": "0.2.0",
   "description": "Made with create-react-library",
   "author": "javiermota",
   "license": "MIT",
-  "repository": "javiermota/@real-food/theme-ui",
+  "repository": "javiermota/@real-food/theme",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.ts",

@@ -4,7 +4,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import WebFont from "webfontloader";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { ThemeProvider, pastelTheme } from "@real-food/theme-ui";
+import { ThemeProvider, pastelTheme } from "@real-food/theme";
 import Sidebar from "./sidebar";
 import Base from "./base";
 import Forms from "./forms";

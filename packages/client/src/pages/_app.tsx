@@ -1,7 +1,7 @@
 import React from "react";
 import whyDidYouRender from "@welldone-software/why-did-you-render";
 import { AppProps } from "next/app";
-import { ThemeProvider, pastelTheme } from "@real-food/theme-ui";
+import { ThemeProvider, pastelTheme } from "@real-food/theme";
 
 if (typeof window !== "undefined" && process.env.NODE_ENV === "development") {
 	whyDidYouRender(React, {

@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@real-food/theme-ui@link:..":
+"@real-food/theme@link:..":
   version "0.0.0"
   uid ""
 

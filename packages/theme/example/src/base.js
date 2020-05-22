@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled, Box } from "@real-food/theme-ui";
+import { jsx, Styled, Box } from "@real-food/theme";
 import { TypeScale, TypeStyle, ColorPalette } from "@theme-ui/style-guide";
 
 export default () => (
@@ -10,7 +10,7 @@ export default () => (
       <Styled.h2>Type Scale</Styled.h2>
       <TypeScale
         sx={{
-          color: "body",
+          color: "text",
         }}
       />
       <Styled.h2>Links</Styled.h2>
@@ -34,7 +34,7 @@ export default () => (
         fontSize="3"
         lineHeight="body"
         sx={{
-          color: "body",
+          color: "text",
         }}
       >
         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officia,

@@ -38,10 +38,10 @@ export default {
     },
     status: {
       normal: {
-        color: "body",
+        color: "text",
       },
       focus: {
-        color: "action",
+        color: "accent",
       },
       error: {
         color: "error",
@@ -53,7 +53,7 @@ export default {
       borderBottomColor: "monocolors.1",
     },
     focus: {
-      borderBottomColor: "actions.0",
+      borderBottomColor: "accents.0",
     },
     error: {
       borderBottomColor: "error",

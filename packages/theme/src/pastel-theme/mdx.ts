@@ -38,7 +38,7 @@ const styles: {
     fontSize: 0,
   },
   p: {
-    color: "body",
+    color: "text",
     fontFamily: "body",
     fontWeight: "body",
     lineHeight: "body",

@@ -3,7 +3,7 @@ export default {
     fontFamily: "body",
     lineHeight: "body",
     fontWeight: "body",
-    color: "body",
+    color: "text",
     fontSize: 1,
   },
   heading: {

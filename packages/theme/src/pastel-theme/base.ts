@@ -38,7 +38,7 @@ const base = {
   },
   colors: {
     heading: "#526270",
-    body: "#5F6368",
+    text: "#5F6368",
     background: "#fff",
     primary: "#E48C77",
     primaries: ["#ECD3CD", "#EBAD9E", "#C97C69", "#A36555"],
@@ -55,8 +55,8 @@ const base = {
     ],
     secondary: "#E2CCA6",
     secondaries: ["#F0D8AF", "#C9B693", "#A39377", "#635A49"],
-    action: "#95BFA6",
-    actions: ["#9FCCB1", "#81A690", "#63806F", "#324037"],
+    accent: "#95BFA6",
+    accents: ["#9FCCB1", "#81A690", "#63806F", "#324037"],
     error: "#AA5545",
   },
 };

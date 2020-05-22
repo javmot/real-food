@@ -1,6 +1,6 @@
 {
-  "short_name": "@real-food/theme-ui",
-  "name": "@real-food/theme-ui",
+  "short_name": "@real-food/theme",
+  "name": "@real-food/theme",
   "icons": [
     {
       "src": "favicon.ico",
