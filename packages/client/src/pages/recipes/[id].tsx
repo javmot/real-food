@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import { Container } from "@real-food/theme";
+import { Container, Styled } from "@real-food/theme";
 import { print } from "graphql/language/printer";
 import Head from "../../components/Head";
 import { RECIPES_IDS_QUERY, RECIPE_QUERY } from "../../lib/queries";
@@ -28,7 +28,7 @@ function Recipe({ recipe, errors }: { recipe: RecipeInterface; errors: any }) {
 			</Head>
 
 			<Container>
-				<h1>{recipe.title}</h1>
+				<Styled.h1>{recipe.title}</Styled.h1>
 				<IngredientsSection ingredients={recipe.ingredients} />
 				<StepsSection steps={recipe.steps} />
 			</Container>
