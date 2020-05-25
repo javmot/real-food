@@ -17,6 +17,10 @@ export default {
     variant: "text.default",
     fontSize: 0,
   },
+  big: {
+    variant: "text.default",
+    fontSize: 5,
+  },
   error: {
     variant: "text.default",
     color: "error",

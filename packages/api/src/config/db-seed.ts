@@ -60,7 +60,13 @@ function getFakeRecipe(
 		steps: getFakeRecipeSteps(),
 		info: {
 			name: title,
-			foodValues: [],
+			foodValues: [1].map(() => ({
+				_id: new ObjectID(),
+				externalId: "409",
+				name: "calorias",
+				total: Math.round(faker.random.number(40)),
+				unit: "KJ",
+			})),
 		},
 		active: true,
 		createdAt: new Date(),

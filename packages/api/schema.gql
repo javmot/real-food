@@ -31,12 +31,7 @@ type FoodGroup {
 The bedca Food Item Info
 """
 type FoodInfo {
-	foodValues(
-		"""
-		Defines detail level: 0 -> Energy, 1 -> Macros, 2 -> Detailed, 3 -> All (default)
-		"""
-		profile: Float = 3
-	): [FoodValue!]!
+	foodValues: [FoodValue!]!
 	id: ID!
 	name: String
 }

@@ -4,6 +4,7 @@ import buttons from "./buttons";
 import styles from "./mdx";
 import forms from "./forms";
 import text from "./text";
+import layout from "./layout";
 
 const theme: Theme = {
   ...base,
@@ -11,6 +12,7 @@ const theme: Theme = {
   text,
   forms,
   styles,
+  layout,
 };
 
 export default theme;

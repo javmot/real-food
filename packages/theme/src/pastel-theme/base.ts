@@ -4,7 +4,7 @@ const base = {
   space: [0, 4, 8, 12, 20, 28, 36, 48, 72],
   radii: [0, 1, 2, 4],
   borderWidths: [0, 1, 3, 5],
-  borders: ["none"],
+  borders: ["none", "1px solid #BFBFBF"],
   zIndices: [-1, 0, 1, 10, 100],
   sizes: [
     0,

@@ -4,7 +4,7 @@ import { prop } from "@typegoose/typegoose";
 @ObjectType({ description: "The bedca Food Value" })
 export class FoodValue {
 	@Field((_type) => ID)
-	id!: string;
+	id?: string;
 
 	@Field()
 	@prop()

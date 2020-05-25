@@ -7,6 +7,7 @@ const recipeFragments = {
 		fragment RecipeBase on Recipe {
 			title
 			time
+			servings
 			category {
 				id
 				title
@@ -20,7 +21,7 @@ const recipeFragments = {
 		fragment RecipeInfo on Recipe {
 			info {
 				name
-				foodValues(profile: 1) {
+				foodValues {
 					id
 					name
 					total

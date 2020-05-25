@@ -5,4 +5,5 @@ export interface Theme extends Omit<ThemeUI, "buttons"> {
   text: { [k: string]: SystemStyleObject };
   forms: { [k: string]: SystemStyleObject };
   buttons: { [k: string]: SystemStyleObject };
+  layout: { [k: string]: SystemStyleObject };
 }

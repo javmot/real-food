@@ -1,5 +1,5 @@
 import React from "react";
-import { Styled } from "@real-food/theme";
+import { Styled, Container } from "@real-food/theme";
 import Head from "../../components/Head";
 import { withApollo } from "../../lib/with-apollo";
 import RecipeListContainer from "../../components/RecipeListContainer";
@@ -10,8 +10,10 @@ const Blog = () => {
 			<Head>
 				<title>Recipes Blog</title>
 			</Head>
-			<Styled.h1>Recipes Blog</Styled.h1>
-			<RecipeListContainer />
+			<Container>
+				<Styled.h1>Recipes Blog</Styled.h1>
+				<RecipeListContainer />
+			</Container>
 		</div>
 	);
 };
