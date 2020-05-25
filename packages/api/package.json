@@ -8,7 +8,7 @@
 	"scripts": {
 		"dev": "ts-node-dev src/server.ts",
 		"start": "ts-node src/server.ts",
-		"pre-commit": "pretty-quick --staged && lint-staged",
+		"pre-commit": "yarn lint",
 		"lint": "pretty-quick && eslint src/**/*.{ts,js} --cache --fix",
 		"reset-db": "ts-node src/config/db-seed.ts"
 	},

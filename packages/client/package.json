@@ -6,7 +6,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"pre-commit": "pretty-quick --staged && lint-staged",
+		"pre-commit": "yarn lint",
 		"lint": "pretty-quick && eslint src/**/*.{ts,tsx,js} --cache --fix"
 	},
 	"dependencies": {

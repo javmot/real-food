@@ -27,7 +27,7 @@
     "deploy": "gh-pages -d example/build",
     "storybook": "start-storybook -p 9009",
     "build-storybook": "build-storybook",
-    "pre-commit": "pretty-quick --staged && lint-staged"
+    "pre-commit": "yarn lint"
   },
   "peerDependencies": {
     "react": "^16.0.0"
