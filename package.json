@@ -5,9 +5,10 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "lerna run dev --parallel",
+    "dev": "yarn theme-build && lerna run dev --parallel",
     "lint": "lerna run lint --parallel",
-    "styleguide": "yarn workspace @real-food/theme styleguide"
+    "styleguide": "yarn workspace @real-food/theme styleguide",
+    "theme-build": "yarn workspace @real-food/theme build"
   },
   "devDependencies": {
     "husky": "^4.2.5",

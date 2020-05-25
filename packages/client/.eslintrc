@@ -6,8 +6,5 @@
   "plugins": [
     "react-hooks",
     "jsx-a11y"
-  ],
-  "env": {
-    "jest": true
-  }
+  ]
 }

@@ -17,6 +17,7 @@ const FoodSelect = ({
 				name={name}
 				ref={register}
 				onChange={onChange}
+				onBlur={onChange}
 				disabled={!data.length}
 			>
 				<option>{placeholder}</option>
