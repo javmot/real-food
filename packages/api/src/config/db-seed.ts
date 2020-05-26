@@ -64,7 +64,7 @@ function getFakeRecipe(
 				_id: new ObjectID(),
 				externalId: "409",
 				name: "calorias",
-				total: Math.round(faker.random.number(40)),
+				total: Math.round(faker.random.number(500)),
 				unit: "KJ",
 			})),
 		},

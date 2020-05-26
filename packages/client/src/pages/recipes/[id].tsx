@@ -9,6 +9,7 @@ import graphqlLittle from "../../lib/graphql-little";
 import { RecipeInterface } from "../../config/interfaces";
 import IngredientsSection from "../../components/IngredientsSection";
 import StepsSection from "../../components/StepsSection";
+import RecipeHead from "../../components/RecipeHead";
 
 function Recipe({ recipe, errors }: { recipe: RecipeInterface; errors: any }) {
 	const { isFallback } = useRouter();
@@ -28,7 +29,7 @@ function Recipe({ recipe, errors }: { recipe: RecipeInterface; errors: any }) {
 			</Head>
 
 			<Container>
-				<Styled.h1>{recipe.title}</Styled.h1>
+				<RecipeHead recipe={recipe} />
 				<IngredientsSection ingredients={recipe.ingredients} />
 				<StepsSection steps={recipe.steps} />
 			</Container>

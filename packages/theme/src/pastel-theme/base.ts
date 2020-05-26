@@ -20,8 +20,8 @@ const base = {
     "100%",
   ],
   fonts: {
-    body: "Lato",
-    heading: "Calistoga",
+    body: "Lato, 'Lucida Grande', Tahoma, Sans-Serif",
+    heading: "'Calistoga', cursive",
     monospace: "Menlo, monospace",
   },
   fontSizes: [14, 15, 16, 18, 22, 28, 34],
@@ -29,7 +29,7 @@ const base = {
     body: 300,
     light: 300,
     regular: 400,
-    heading: 400,
+    heading: 700,
     bold: 700,
   },
   lineHeights: {

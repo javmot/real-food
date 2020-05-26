@@ -1,19 +1,20 @@
 import React from "react";
+import { Styled, Box } from "@real-food/theme";
 import { StepsSectionProps } from "./interfaces";
 import withQueryData from "../../lib/with-query-data";
 
 const StepsSection = ({ steps = [] }: StepsSectionProps) => {
 	return (
-		<div>
-			<h3>{steps.length} Steps</h3>
+		<Box>
+			<Styled.h3>{steps.length} Steps</Styled.h3>
 			{steps.map((step) => (
-				<div key={step.id}>
-					<h2>{step.title}</h2>
-					<img src={step.img} alt={step.title} />
-					<p>{step.description}</p>
-				</div>
+				<Box key={step.id}>
+					<Styled.h2>{step.title}</Styled.h2>
+					{step.img && <img src={step.img} alt={step.title} />}
+					<Styled.p>{step.description}</Styled.p>
+				</Box>
 			))}
-		</div>
+		</Box>
 	);
 };
 

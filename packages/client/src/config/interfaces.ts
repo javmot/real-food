@@ -2,6 +2,7 @@ export interface RecipeInterface {
 	category: any;
 	id: string;
 	info: any;
+	servings: number;
 	ingredients: Array<IngredientInterface>;
 	steps: Array<any>;
 	time: string;

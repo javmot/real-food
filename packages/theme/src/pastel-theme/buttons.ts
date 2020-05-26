@@ -4,7 +4,7 @@ export default {
       px: 5,
       py: 2,
       fontSize: 2,
-      fontWeight: "heading",
+      fontWeight: "regular",
     },
   },
   buttons: {

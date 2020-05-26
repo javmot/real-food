@@ -22,7 +22,7 @@ const recipeFragments = {
 			info {
 				name
 				foodValues {
-					id
+					externalId
 					name
 					total
 					unit
