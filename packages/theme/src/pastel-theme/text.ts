@@ -7,11 +7,13 @@ export default {
     fontSize: 1,
   },
   heading: {
+    color: "heading",
     fontFamily: "heading",
     lineHeight: "heading",
     fontWeight: "heading",
-    color: "heading",
-    fontSize: 6,
+    mt: 3,
+    mb: "0.8em",
+    fontSize: 7,
   },
   small: {
     variant: "text.default",

@@ -11,6 +11,8 @@ export {
   Select,
   Textarea,
   Text,
+  Divider,
+  Heading,
   Image,
   Link as StyledLink,
 } from "theme-ui";

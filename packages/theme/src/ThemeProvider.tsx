@@ -1,7 +1,22 @@
 import React from "react";
-import { ThemeProvider, ThemeProviderProps } from "theme-ui";
+import { ThemeProvider } from "theme-ui";
+import { IconContext } from "react-icons";
 import { Theme } from "./interfaces";
 
-export default ({ children, theme }: ThemeProviderProps<Theme>) => (
-  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  theme: Theme;
+}
+
+export default ({ children, theme }: ThemeProviderProps) => (
+  <ThemeProvider theme={theme}>
+    <IconContext.Provider
+      value={{
+        className: "real-food-icons",
+        style: { verticalAlign: "middle" },
+      }}
+    >
+      {children}
+    </IconContext.Provider>
+  </ThemeProvider>
 );

@@ -5,12 +5,12 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "yarn theme-build && lerna run dev --parallel",
+    "dev": "yarn theme-build && sleep 10 && lerna run dev --parallel",
     "build": "run-s theme-build client-build",
     "start": "yarn workspace @real-food/client start",
     "lint": "lerna run lint --parallel",
     "styleguide": "yarn workspace @real-food/theme styleguide",
-    "theme-build": "yarn workspace @real-food/theme build",
+    "theme-build": "yarn workspace @real-food/theme start &",
     "client-build": "yarn workspace @real-food/client build",
     "api-start": "yarn workspace @real-food/api start"
   },

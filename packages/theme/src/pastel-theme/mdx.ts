@@ -11,30 +11,27 @@ const styles: {
     fontSize: 1,
   },
   h1: {
-    color: "heading",
-    fontFamily: "heading",
-    lineHeight: "heading",
-    fontWeight: "heading",
+    variant: "text.heading",
     fontSize: 6,
   },
   h2: {
-    variant: "styles.h1",
+    variant: "text.heading",
     fontSize: 5,
   },
   h3: {
-    variant: "styles.h1",
+    variant: "text.heading",
     fontSize: 4,
   },
   h4: {
-    variant: "styles.h1",
+    variant: "text.heading",
     fontSize: 3,
   },
   h5: {
-    variant: "styles.h1",
+    variant: "text.heading",
     fontSize: 2,
   },
   h6: {
-    variant: "styles.h1",
+    variant: "text.heading",
     fontSize: 0,
   },
   p: {
@@ -42,6 +39,8 @@ const styles: {
     fontFamily: "body",
     fontWeight: "body",
     lineHeight: "body",
+    mt: 3,
+    mb: 4,
   },
   a: {
     color: "primary",
@@ -54,6 +53,10 @@ const styles: {
     "&:active": {
       color: "primaries.1",
     },
+  },
+  hr: {
+    color: "monocolors.1",
+    my: [7, 8],
   },
   pre: {
     fontFamily: "monospace",

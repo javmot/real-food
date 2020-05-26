@@ -1,22 +1,24 @@
 import React from "react";
+import { Styled, Box, IconList } from "@real-food/theme";
 import { IngredientsSectionProps } from "./interfaces";
 import withQueryData from "../../lib/with-query-data";
 
 const IngredientsSection = ({ ingredients = [] }: IngredientsSectionProps) => {
 	if (!ingredients.length) {
-		return <div />;
+		return <></>;
 	}
+
 	return (
-		<div>
-			<h3>{ingredients.length} Ingredients</h3>
-			<ul>
+		<Box>
+			<Styled.h1 as="h3">{ingredients.length} Ingredients</Styled.h1>
+			<IconList>
 				{ingredients.map((ingredient) => (
-					<li key={ingredient.externalId}>
+					<IconList.Item key={ingredient.externalId}>
 						{ingredient.quantity} gramos {ingredient.name}
-					</li>
+					</IconList.Item>
 				))}
-			</ul>
-		</div>
+			</IconList>
+		</Box>
 	);
 };
 

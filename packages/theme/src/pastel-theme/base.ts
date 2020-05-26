@@ -24,7 +24,7 @@ const base = {
     heading: "'Calistoga', cursive",
     monospace: "Menlo, monospace",
   },
-  fontSizes: [14, 15, 16, 18, 22, 28, 34],
+  fontSizes: [14, 15, 16, 18, 22, 28, 34, 42],
   fontWeights: {
     body: 300,
     light: 300,
