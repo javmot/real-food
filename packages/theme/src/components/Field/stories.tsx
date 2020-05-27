@@ -1,13 +1,15 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { Select } from "theme-ui";
+import { Select } from "../../index";
 
+import WidthDecorator from "../../../.storybook/WidthDecorator";
 import { Field } from "./index";
 
 export default {
   component: Field,
   title: "Field",
   excludeStories: /.*Data$/,
+  decorators: [WidthDecorator("50%")],
 };
 
 export const fieldData = {

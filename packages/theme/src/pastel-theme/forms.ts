@@ -7,13 +7,26 @@ export default {
     borderBottomWidth: 2,
     borderStyle: "solid",
     outline: "transparent",
-    variant: "forms.status.normal",
+    variant: "text.default",
   },
   input: {
     variant: "forms.baseInput",
   },
   select: {
     variant: "forms.baseInput",
+  },
+  selectArrow: {
+    status: {
+      normal: {
+        color: "monocolors.1",
+      },
+      focus: {
+        color: "accents.0",
+      },
+      error: {
+        color: "error",
+      },
+    },
   },
   textarea: {
     variant: "forms.baseInput",
@@ -24,7 +37,7 @@ export default {
     resize: "none",
   },
   label: {
-    fontWeight: "heading",
+    fontWeight: "regular",
     status: {
       normal: {
         color: "text",

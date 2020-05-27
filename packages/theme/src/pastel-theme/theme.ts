@@ -5,6 +5,7 @@ import styles from "./mdx";
 import forms from "./forms";
 import text from "./text";
 import layout from "./layout";
+import iconList from "./icon-list";
 
 const theme: Theme = {
   ...base,
@@ -13,6 +14,7 @@ const theme: Theme = {
   forms,
   styles,
   layout,
+  iconList,
 };
 
 export default theme;

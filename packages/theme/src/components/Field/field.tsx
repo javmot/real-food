@@ -48,14 +48,16 @@ export const Field = React.forwardRef(
 
     return (
       <Box {...getMargin(props)}>
-        <Label
-          sx={{
-            variant: `forms.label.status.${status}`,
-          }}
-          htmlFor={id}
-        >
-          {label}
-        </Label>
+        {label && (
+          <Label
+            sx={{
+              variant: `forms.label.status.${status}`,
+            }}
+            htmlFor={id}
+          >
+            {label}
+          </Label>
+        )}
         <Control
           ref={ref}
           sx={{
@@ -64,6 +66,7 @@ export const Field = React.forwardRef(
           {...props}
           onFocus={onFocusChange(true)}
           onBlur={onFocusChange(false)}
+          status={status}
           id={id}
           name={id}
         />

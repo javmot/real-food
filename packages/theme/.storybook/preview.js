@@ -3,6 +3,7 @@ import React from "react";
 import { addDecorator } from "@storybook/react";
 
 import ThemeDecorator from "./ThemeDecorator";
+import ContainerDecorator from "./ContainerDecorator";
 import WebFont from "webfontloader";
 
 WebFont.load({
@@ -15,3 +16,4 @@ WebFont.load({
 });
 
 addDecorator(ThemeDecorator);
+addDecorator(ContainerDecorator);

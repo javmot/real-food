@@ -8,7 +8,6 @@ export {
   Flex,
   Grid,
   Container,
-  Select,
   Textarea,
   Text,
   Divider,

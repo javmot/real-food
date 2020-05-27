@@ -1,17 +1,17 @@
 /** @jsx jsx */
 import React, { MutableRefObject } from "react";
-import { jsx, Styled } from "theme-ui";
-import { RiCheckLine } from "react-icons/ri";
+import { jsx, Box, BoxProps } from "theme-ui";
+import { BsCheck } from "react-icons/bs";
 import { IconType } from "react-icons";
 
-interface IconListProps {
+interface IconListProps extends BoxProps {
   children: React.ReactNode;
 }
 
-interface IconListItemProps {
+interface IconListItemProps extends BoxProps {
   children: React.ReactNode;
-  as?: IconType;
-  color?: string;
+  icon?: IconType;
+  iconColor?: string;
 }
 
 interface IconListInterface
@@ -22,43 +22,47 @@ interface IconListInterface
 }
 
 export const IconList: IconListInterface = React.forwardRef(
-  ({ children }: IconListProps, ref: MutableRefObject<any>) => (
-    <Styled.ul
+  ({ children, ...props }: IconListProps, ref: MutableRefObject<any>) => (
+    <Box
+      as="ul"
       ref={ref}
       sx={{
         listStyleType: "none",
-        ml: 0,
-        pl: 0,
+        variant: "iconList.list",
       }}
+      {...props}
     >
       {children}
-    </Styled.ul>
+    </Box>
   )
 );
 
 IconList.Item = React.forwardRef(
   (
-    { children, as: Icon, color }: IconListItemProps,
+    { children, icon: Icon, iconColor, ...props }: IconListItemProps,
     ref: MutableRefObject<any>
   ) => (
-    <Styled.li
+    <Box
+      as="li"
       ref={ref}
       sx={{
-        my: 2,
-        "& > .real-food-icons": {
-          color,
-          pr: 2,
-          fontSize: 4,
-        },
+        variant: "iconList.item",
       }}
+      {...props}
     >
-      <Icon />
+      <Icon
+        sx={{
+          variant: "iconList.icon",
+          ...(iconColor && {
+            color: iconColor,
+          }),
+        }}
+      />
       {children}
-    </Styled.li>
+    </Box>
   )
 );
 
 IconList.Item.defaultProps = {
-  as: RiCheckLine,
-  color: "primary",
+  icon: BsCheck,
 };

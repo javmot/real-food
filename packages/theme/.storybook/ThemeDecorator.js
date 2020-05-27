@@ -1,6 +1,8 @@
 import React from "react";
-import ThemeProvider from "../src/ThemeProvider";
+import { ThemeProvider, pastelTheme } from "../src/index";
 
-const ThemeDecorator = (storyFn) => <ThemeProvider>{storyFn()}</ThemeProvider>;
+const ThemeDecorator = (storyFn) => (
+  <ThemeProvider theme={pastelTheme}>{storyFn()}</ThemeProvider>
+);
 
 export default ThemeDecorator;
