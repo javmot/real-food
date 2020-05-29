@@ -52,25 +52,11 @@ interface IFoodItem {
   name: String!
 }
 
-"""The bedca Food Item"""
-type Ingredient implements IFoodItem {
-  externalId: ID!
-  id: ID!
-  name: String!
-  quantity: Float!
-}
-
-input IngredientInput {
-  externalId: String!
-  name: String!
-  quantity: Float!
-}
-
 type Mutation {
-  addIngredient(id: String!, ingredient: IngredientInput!): Recipe
+  addIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
   createRecipe(input: CreateRecipeInput!): Recipe!
   createRecipeCategory(input: CreateRecipeCategoryInput!): RecipeCategory!
-  removeIngredient(id: String!, ingredient: IngredientInput!): Recipe
+  removeIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
   signup(input: UserInput!): User!
 }
 
@@ -95,7 +81,7 @@ type Recipe {
   createdAt: DateTime!
   id: ID!
   info: FoodInfo
-  ingredients: [Ingredient!]!
+  ingredients: [RecipeIngredient!]!
   servings: Int!
   steps: [RecipeStep!]!
   time: String!
@@ -109,6 +95,20 @@ type Recipe {
 type RecipeCategory {
   id: ID!
   title: String!
+}
+
+"""The bedca Food Item"""
+type RecipeIngredient implements IFoodItem {
+  externalId: ID!
+  id: ID!
+  name: String!
+  quantity: Float!
+}
+
+input RecipeIngredientInput {
+  externalId: String!
+  name: String!
+  quantity: Float!
 }
 
 """Steps Of the Recipe"""

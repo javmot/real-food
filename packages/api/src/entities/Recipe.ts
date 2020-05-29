@@ -16,7 +16,7 @@ import { RecipeCategory } from "./RecipeCategory";
 
 @index({ title: 1, userId: 1 }, { unique: true })
 @ObjectType({ description: "The Recipe model" })
-@pre<Recipe>("save", function preValidate(next) {
+@pre<Recipe>("validate", function preValidate(next) {
 	const unique: Array<any> = [];
 
 	this.ingredients.forEach((ingredient) => {

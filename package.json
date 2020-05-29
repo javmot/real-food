@@ -12,6 +12,7 @@
     "styleguide": "yarn workspace @real-food/theme styleguide",
     "theme-build": "yarn workspace @real-food/theme start &",
     "client-build": "yarn workspace @real-food/client build",
+    "api-dev": "yarn workspace @real-food/api dev",
     "api-start": "yarn workspace @real-food/api start"
   },
   "devDependencies": {
