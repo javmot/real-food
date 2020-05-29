@@ -5,7 +5,7 @@ import { MongoClient, ObjectID } from "mongodb";
 import { UserInterface } from "../entities/User";
 import { RecipeCategoryInterface } from "../entities/RecipeCategory";
 import { RecipeInterface } from "../entities/Recipe";
-import { IngredientInterface } from "../entities/Ingredient";
+import { RecipeIngredientInterface } from "../entities/RecipeIngredient";
 import { RecipeStepInterface } from "../entities/RecipeStep";
 import { DB_DEV } from "./db";
 
@@ -24,7 +24,7 @@ function getFakeCategory(): RecipeCategoryInterface {
 	};
 }
 
-function getFakeIngredients(): IngredientInterface[] {
+function getFakeIngredients(): RecipeIngredientInterface[] {
 	return times(Math.round(faker.random.number({ min: 5, max: 15 }))).map(
 		() => ({
 			_id: new ObjectID(),

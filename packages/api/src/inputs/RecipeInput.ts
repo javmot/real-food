@@ -4,7 +4,7 @@ import { Ref } from "../types";
 import { RecipeCategory } from "../entities/RecipeCategory";
 import { Recipe } from "../entities/Recipe";
 import { RecipeStepInput } from "./RecipeStepInput";
-import { IngredientInput } from "./IngredientInput";
+import { RecipeIngredientInput } from "./RecipeIngredientInput";
 
 @InputType()
 export class CreateAllRecipeInput implements Partial<Recipe> {
@@ -21,8 +21,8 @@ export class CreateAllRecipeInput implements Partial<Recipe> {
 	@Field((_type) => RecipeStepInput)
 	steps!: RecipeStepInput[];
 
-	@Field((_type) => IngredientInput)
-	ingredients!: IngredientInput[];
+	@Field((_type) => RecipeIngredientInput)
+	ingredients!: RecipeIngredientInput[];
 }
 
 @InputType()

@@ -1,17 +1,16 @@
 import { InputType, Field } from "type-graphql";
 import { Length } from "class-validator";
-import { Ingredient } from "../entities/Ingredient";
+import { RecipeIngredient } from "../entities/RecipeIngredient";
 
 @InputType()
-export class IngredientInput implements Partial<Ingredient> {
+export class RecipeIngredientInput implements Partial<RecipeIngredient> {
 	@Field()
 	@Length(1, 255)
 	externalId!: string;
 
 	@Field()
-	@Length(1, 255)
-	name!: string;
+	quantity!: number;
 
 	@Field()
-	quantity!: number;
+	name!: string;
 }

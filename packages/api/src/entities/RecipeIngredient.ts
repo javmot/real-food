@@ -3,7 +3,7 @@ import { prop } from "@typegoose/typegoose";
 import { IFoodItem } from "./IFoodItem";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
-export class Ingredient {
+export class RecipeIngredient {
 	@prop({ required: true })
 	externalId!: string;
 
@@ -18,4 +18,4 @@ export class Ingredient {
 	quantity!: number;
 }
 
-export interface IngredientInterface extends Ingredient {}
+export interface RecipeIngredientInterface extends RecipeIngredient {}

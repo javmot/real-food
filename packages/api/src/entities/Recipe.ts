@@ -10,7 +10,7 @@ import { TimeStamps } from "@typegoose/typegoose/lib/defaultClasses";
 import { Ref } from "../types";
 import { User } from "./User";
 import { RecipeStep } from "./RecipeStep";
-import { Ingredient } from "./Ingredient";
+import { RecipeIngredient } from "./RecipeIngredient";
 import { FoodInfo } from "./FoodInfo";
 import { RecipeCategory } from "./RecipeCategory";
 
@@ -59,9 +59,9 @@ export class Recipe extends TimeStamps {
 	@arrayProp({ items: RecipeStep, default: [] })
 	steps!: RecipeStep[];
 
-	@Field((_type) => Ingredient)
-	@arrayProp({ items: Ingredient, default: [] })
-	ingredients!: Ingredient[];
+	@Field((_type) => RecipeIngredient)
+	@arrayProp({ items: RecipeIngredient, default: [] })
+	ingredients!: RecipeIngredient[];
 
 	@Field((_type) => FoodInfo, { nullable: true })
 	@prop({ type: FoodInfo, default: {} })

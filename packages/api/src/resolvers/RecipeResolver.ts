@@ -18,13 +18,13 @@ import { User, UserModel } from "../entities/User";
 import { CreateRecipeInput } from "../inputs/RecipeInput";
 import { Context } from "../config/context";
 import BedcaAPI from "../dataSources/BedcaAPI";
-import { IngredientInput } from "../inputs/IngredientInput";
+import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
 
 const ADD = true;
 const REMOVE = false;
 
-const parseFoodValues = (ingredient: IngredientInput, add: boolean) => (
+const parseFoodValues = (ingredient: RecipeIngredientInput, add: boolean) => (
 	values: Array<any>
 ) => {
 	const operator = add ? 1 : -1;
@@ -36,7 +36,7 @@ const parseFoodValues = (ingredient: IngredientInput, add: boolean) => (
 
 const updateIngredient = async (
 	id: string,
-	ingredient: IngredientInput,
+	ingredient: RecipeIngredientInput,
 	{ dataSources }: Context,
 	add: boolean = ADD
 ) => {
@@ -125,7 +125,7 @@ export default class RecipeResolver {
 	@Mutation((_returns) => Recipe, { nullable: true })
 	addIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: IngredientInput,
+		@Arg("ingredient") ingredient: RecipeIngredientInput,
 		@Ctx() ctx: Context
 	) {
 		return updateIngredient(id, ingredient, ctx, ADD);
@@ -134,7 +134,7 @@ export default class RecipeResolver {
 	@Mutation((_returns) => Recipe, { nullable: true })
 	removeIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: IngredientInput,
+		@Arg("ingredient") ingredient: RecipeIngredientInput,
 		@Ctx() ctx: Context
 	) {
 		return updateIngredient(id, ingredient, ctx, REMOVE);
@@ -171,7 +171,7 @@ function mergeFoodValues(foodValues: any) {
 }
 
 function requestIngredientValues(
-	ingredient: IngredientInput,
+	ingredient: RecipeIngredientInput,
 	add: boolean,
 	bedcaApi: BedcaAPI
 ) {
