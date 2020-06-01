@@ -1,5 +1,5 @@
 import BedcaAPI from "./BedcaAPI";
 
-export interface FoodDataSources {
+export interface IFoodDataSources {
 	bedcaAPI: BedcaAPI;
 }

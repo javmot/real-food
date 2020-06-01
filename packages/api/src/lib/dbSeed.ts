@@ -7,7 +7,7 @@ import { RecipeCategoryInterface } from "../entities/RecipeCategory";
 import { RecipeInterface } from "../entities/Recipe";
 import { RecipeIngredientInterface } from "../entities/RecipeIngredient";
 import { RecipeStepInterface } from "../entities/RecipeStep";
-import { DB_DEV } from "./db";
+import { DB_DEV } from "../config/db";
 
 function getFakeUser(): UserInterface {
 	const username = uniqueId(faker.name.firstName());

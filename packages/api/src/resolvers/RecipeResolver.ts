@@ -1,4 +1,3 @@
-import { groupBy, map } from "lodash";
 import {
 	Resolver,
 	Arg,
@@ -17,22 +16,22 @@ import {
 import { User, UserModel } from "../entities/User";
 import { CreateRecipeInput } from "../inputs/RecipeInput";
 import { Context } from "../config/context";
-import BedcaAPI from "../dataSources/BedcaAPI";
+import BedcaAPI from "../lib/BedcaAPI";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
 
 const ADD = true;
 const REMOVE = false;
 
-const parseFoodValues = (ingredient: RecipeIngredientInput, add: boolean) => (
-	values: Array<any>
-) => {
-	const operator = add ? 1 : -1;
-	return values.map((value) => ({
-		...value,
-		total: operator * ((value.total * ingredient.quantity) / 100),
-	}));
-};
+// const parseFoodValues = (ingredient: RecipeIngredientInput, add: boolean) => (
+// 	values: Array<any>
+// ) => {
+// 	const operator = add ? 1 : -1;
+// 	return values.map((value) => ({
+// 		...value,
+// 		total: operator * ((value.total * ingredient.quantity) / 100),
+// 	}));
+// };
 
 const updateIngredient = async (
 	id: string,
@@ -52,22 +51,22 @@ const updateIngredient = async (
 				return i.externalId !== ingredient.externalId;
 		  });
 
-	await recipe.save();
-
-	const { foodValues } = recipe.info;
-	const ingredientFoodValues = await requestIngredientValues(
-		ingredient,
-		add,
-		dataSources.bedcaAPI
-	);
-	const newFoodValues = mergeFoodValues([
-		...foodValues,
-		...ingredientFoodValues,
-	]);
-
-	recipe.info.foodValues = newFoodValues;
-
 	return recipe.save();
+
+	// const { foodValues } = recipe.info;
+	// const ingredientFoodValues = await requestIngredientValues(
+	// 	ingredient,
+	// 	add,
+	// 	dataSources.bedcaAPI
+	// );
+	// const newFoodValues = mergeFoodValues([
+	// 	...foodValues,
+	// 	...ingredientFoodValues,
+	// ]);
+
+	// recipe.info.foodValues = newFoodValues;
+
+	// return recipe.save();
 };
 
 @Resolver((_of) => Recipe)
@@ -151,32 +150,32 @@ export default class RecipeResolver {
 	}
 }
 
-function mergeFoodValues(foodValues: any) {
-	const totalReducer = (memo: any, value: any) => {
-		return {
-			...memo,
-			total: memo.total + value.total,
-		};
-	};
-	const grouped = groupBy(foodValues, (value) => value.externalId);
+// function mergeFoodValues(foodValues: any) {
+// 	const totalReducer = (memo: any, value: any) => {
+// 		return {
+// 			...memo,
+// 			total: memo.total + value.total,
+// 		};
+// 	};
+// 	const grouped = groupBy(foodValues, (value) => value.externalId);
 
-	return map(grouped, (group) => {
-		return group.reduce(totalReducer, {
-			externalId: group[0].externalId,
-			name: group[0].name,
-			unit: group[0].unit,
-			total: 0,
-		});
-	});
-}
+// 	return map(grouped, (group) => {
+// 		return group.reduce(totalReducer, {
+// 			externalId: group[0].externalId,
+// 			name: group[0].name,
+// 			unit: group[0].unit,
+// 			total: 0,
+// 		});
+// 	});
+// }
 
-function requestIngredientValues(
-	ingredient: RecipeIngredientInput,
-	add: boolean,
-	bedcaApi: BedcaAPI
-) {
-	return bedcaApi
-		.getFood(ingredient.externalId)
-		.then((foodInfo) => (foodInfo ? foodInfo.foodValues : []))
-		.then(parseFoodValues(ingredient, add));
-}
+// function requestIngredientValues(
+// 	ingredient: RecipeIngredientInput,
+// 	add: boolean,
+// 	bedcaApi: BedcaAPI
+// ) {
+// 	return bedcaApi
+// 		.getFood(ingredient.externalId)
+// 		.then((foodInfo) => (foodInfo ? foodInfo.foodValues : []))
+// 		.then(parseFoodValues(ingredient, add));
+// }

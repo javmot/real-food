@@ -1,14 +1,13 @@
 import { DocumentType } from "@typegoose/typegoose";
-import { Recipe } from "./entities/Recipe";
+import { Recipe } from "../entities/Recipe";
 
 export type HookNextErrorFn = (err?: Error) => void;
 
-export const preValidateRecipe: (
+export const uniqueIngredients: (
 	this: DocumentType<Recipe>,
 	next: HookNextErrorFn
 ) => void = function (next: HookNextErrorFn) {
 	const unique: Array<any> = [];
-
 	this.ingredients.forEach((ingredient: any) => {
 		if (
 			unique.some(

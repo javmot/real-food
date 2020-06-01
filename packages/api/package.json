@@ -10,7 +10,7 @@
 		"start": "ts-node src/server.ts",
 		"pre-commit": "yarn lint",
 		"lint": "pretty-quick && eslint src/**/*.{ts,js} --cache --fix",
-		"reset-db": "ts-node src/config/db-seed.ts"
+		"reset-db": "ts-node src/lib/dbSeed.ts"
 	},
 	"dependencies": {
 		"@typegoose/typegoose": "^7.0.0",
@@ -23,6 +23,7 @@
 		"graphql": "^15.0.0",
 		"lodash": "^4.17.15",
 		"mongoose": "^5.9.10",
+		"mongoose-unique-array": "^0.3.4",
 		"reflect-metadata": "^0.1.13",
 		"type-graphql": "^1.0.0-rc.1",
 		"xml2js": "^0.4.23"

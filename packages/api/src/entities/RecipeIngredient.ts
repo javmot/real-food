@@ -5,7 +5,7 @@ import { Ingredient } from "./Ingredient";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
 export class RecipeIngredient {
-	@prop({ required: true })
+	@prop({ required: true, unique: true })
 	externalId!: string;
 
 	@prop({ required: true })
@@ -19,7 +19,7 @@ export class RecipeIngredient {
 	quantity!: number;
 
 	@Field((_type) => Ingredient)
-	@prop({ ref: "Ingredient", required: true })
+	@prop({ ref: "Ingredient", required: false })
 	details?: Ref<Ingredient>;
 }
 

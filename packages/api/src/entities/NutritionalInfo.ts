@@ -5,55 +5,55 @@ import { NutritionalValue } from "./NutritionalValue";
 @ObjectType({ description: "TO-DO" })
 export class NutritionalInfo {
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	energy!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	fat!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	protein!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	carbohydrate!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	fibre!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	water!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	alcohol!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	monounsaturated!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	polyunsaturated!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	saturated!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	cholesterol!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	trans!: NutritionalValue;
 
 	@Field((_type) => NutritionalValue)
-	@prop({ required: true })
+	@prop({ required: false })
 	sugar!: NutritionalValue;
 
 	@Field((_type) => [NutritionalValue])
