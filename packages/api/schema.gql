@@ -30,7 +30,7 @@ type FoodGroup {
 """
 The bedca Food Item
 """
-type FoodItem {
+type FoodItem implements IFoodItem {
 	externalId: ID!
 	name: String!
 }
@@ -43,11 +43,12 @@ interface IFoodItem {
 """
 The bedca Food Item Info
 """
-type Ingredient {
+type Ingredient implements IFoodItem {
 	externalId: ID!
 	id: ID!
-	name: String
+	name: String!
 	nutritionalInfo: NutritionalInfo!
+	recipes: [Recipe!]!
 }
 
 type Mutation {
@@ -134,6 +135,7 @@ type RecipeCategory {
 The bedca Food Item
 """
 type RecipeIngredient implements IFoodItem {
+	details: Ingredient!
 	externalId: ID!
 	id: ID!
 	name: String!

@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from "type-graphql";
-import { prop } from "@typegoose/typegoose";
+import { prop, Ref } from "@typegoose/typegoose";
 import { IFoodItem } from "./IFoodItem";
+import { Ingredient } from "./Ingredient";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
 export class RecipeIngredient {
@@ -16,6 +17,10 @@ export class RecipeIngredient {
 	@Field()
 	@prop({ required: true })
 	quantity!: number;
+
+	@Field((_type) => Ingredient)
+	@prop({ ref: "Ingredient", required: true })
+	details?: Ref<Ingredient>;
 }
 
 export interface RecipeIngredientInterface extends RecipeIngredient {}

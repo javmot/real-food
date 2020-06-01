@@ -1,10 +1,10 @@
 import { InputType, Field } from "type-graphql";
 import { Length } from "class-validator";
-import { Ref } from "../types";
 import { RecipeCategory } from "../entities/RecipeCategory";
 import { Recipe } from "../entities/Recipe";
 import { RecipeStepInput } from "./RecipeStepInput";
 import { RecipeIngredientInput } from "./RecipeIngredientInput";
+import { Ref } from "@typegoose/typegoose";
 
 @InputType()
 export class CreateAllRecipeInput implements Partial<Recipe> {

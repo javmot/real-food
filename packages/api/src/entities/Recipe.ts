@@ -5,9 +5,9 @@ import {
 	index,
 	pre,
 	getModelForClass,
+	Ref,
 } from "@typegoose/typegoose";
 import { TimeStamps } from "@typegoose/typegoose/lib/defaultClasses";
-import { Ref } from "../types";
 import { User } from "./User";
 import { RecipeStep } from "./RecipeStep";
 import { RecipeIngredient } from "./RecipeIngredient";
@@ -35,7 +35,7 @@ export class Recipe extends TimeStamps {
 	servings!: number;
 
 	@Field((_type) => String)
-	@prop({ ref: RecipeCategory, required: true })
+	@prop({ ref: "RecipeCategory", required: true })
 	categoryId!: Ref<RecipeCategory>;
 
 	@Field((_type) => RecipeStep)
@@ -51,7 +51,7 @@ export class Recipe extends TimeStamps {
 	nutritionalInfo!: NutritionalInfo;
 
 	@Field((_type) => String)
-	@prop({ ref: User, required: true })
+	@prop({ ref: "User", required: true })
 	userId!: Ref<User>;
 
 	@prop({ default: false })
