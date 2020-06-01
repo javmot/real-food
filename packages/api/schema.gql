@@ -44,8 +44,8 @@ interface IFoodItem {
 The bedca Food Item Info
 """
 type Ingredient implements IFoodItem {
+	_id: ID!
 	externalId: ID!
-	id: ID!
 	name: String!
 	nutritionalInfo: NutritionalInfo!
 	recipes: [Recipe!]!

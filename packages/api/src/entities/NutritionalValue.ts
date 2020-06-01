@@ -8,16 +8,16 @@ export class NutritionalValue {
 	externalId!: string;
 
 	@Field()
-	@prop({ required: true })
-	name!: string;
+	@prop()
+	name?: string;
 
 	@Field()
 	@prop({ required: true })
 	quantity!: number;
 
 	@Field()
-	@prop({ required: true })
-	unit!: string;
+	@prop()
+	unit?: string;
 }
 
 export interface NutritionalValueInterface extends NutritionalValue {}

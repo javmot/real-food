@@ -14,11 +14,13 @@ import {
 	RecipeCategoryModel,
 } from "../entities/RecipeCategory";
 import { User, UserModel } from "../entities/User";
+import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { CreateRecipeInput } from "../inputs/RecipeInput";
 import { Context } from "../config/context";
 import BedcaAPI from "../lib/BedcaAPI";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
+import { RecipeIngredient } from "../entities/RecipeIngredient";
 
 const ADD = true;
 const REMOVE = false;
@@ -33,10 +35,42 @@ const REMOVE = false;
 // 	}));
 // };
 
+const parseIngredient = (
+	ingredient: Ingredient,
+	ingredientInput: RecipeIngredientInput
+): RecipeIngredient => ({
+	externalId: ingredient.externalId,
+	name: ingredient.name,
+	quantity: ingredientInput.quantity,
+	details: ingredient._id,
+});
+
+const getIngredientFromBedca = async (
+	ingredientInput: RecipeIngredientInput,
+	bedcaAPI: BedcaAPI
+): Promise<RecipeIngredient> => {
+	const ingredient = await bedcaAPI.getIngredient(ingredientInput.externalId);
+	return parseIngredient(
+		await IngredientModel.create(ingredient),
+		ingredientInput
+	);
+};
+
+const getIngredient = async (
+	ingredientInput: RecipeIngredientInput,
+	bedcaApi: BedcaAPI
+) => {
+	const ingredient = await IngredientModel.findOne({
+		externalId: ingredientInput.externalId,
+	});
+	if (ingredient) return parseIngredient(ingredient, ingredientInput);
+
+	return getIngredientFromBedca(ingredientInput, bedcaApi);
+};
+
 const updateIngredient = async (
 	id: string,
 	ingredient: RecipeIngredientInput,
-	{ dataSources }: Context,
 	add: boolean = ADD
 ) => {
 	const recipe = await RecipeModel.findOne({
@@ -52,21 +86,6 @@ const updateIngredient = async (
 		  });
 
 	return recipe.save();
-
-	// const { foodValues } = recipe.info;
-	// const ingredientFoodValues = await requestIngredientValues(
-	// 	ingredient,
-	// 	add,
-	// 	dataSources.bedcaAPI
-	// );
-	// const newFoodValues = mergeFoodValues([
-	// 	...foodValues,
-	// 	...ingredientFoodValues,
-	// ]);
-
-	// recipe.info.foodValues = newFoodValues;
-
-	// return recipe.save();
 };
 
 @Resolver((_of) => Recipe)
@@ -122,21 +141,24 @@ export default class RecipeResolver {
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
-	addIngredient(
+	async addIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: RecipeIngredientInput,
+		@Arg("ingredient") ingredientInput: RecipeIngredientInput,
 		@Ctx() ctx: Context
 	) {
-		return updateIngredient(id, ingredient, ctx, ADD);
+		return updateIngredient(
+			id,
+			await getIngredient(ingredientInput, ctx.dataSources.bedcaAPI),
+			ADD
+		);
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
 	removeIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: RecipeIngredientInput,
-		@Ctx() ctx: Context
+		@Arg("ingredient") ingredient: RecipeIngredientInput
 	) {
-		return updateIngredient(id, ingredient, ctx, REMOVE);
+		return updateIngredient(id, ingredient, REMOVE);
 	}
 
 	@FieldResolver((_type) => RecipeCategory)
