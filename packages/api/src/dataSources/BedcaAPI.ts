@@ -3,8 +3,7 @@ import { parseStringPromise } from "xml2js";
 import { getGroupsQuery, getGroupQuery, getFoodQuery } from "./xmlQueries";
 import foodItemsProxy from "../proxies/foodItemsProxy";
 import foodGroupsProxy from "../proxies/foodGroupsProxy";
-import foodInfoProxy from "../proxies/foodInfoProxy";
-import { log } from "../utils";
+import ingredientProxy from "../proxies/ingredientProxy";
 
 const headers = {
 	"content-type": "text/xml",
@@ -34,12 +33,11 @@ export default class BedcaAPI extends RESTDataSource {
 			.then(foodItemsProxy);
 	}
 
-	getFood(foodId: string) {
+	getIngredient(foodId: string) {
 		return this.post("procquery.php", getFoodQuery(foodId), { headers })
 			.then(parseStringPromise)
 			.then(parseResponse)
 			.then((food) => food[0])
-			.then(log)
-			.then(foodInfoProxy);
+			.then(ingredientProxy);
 	}
 }

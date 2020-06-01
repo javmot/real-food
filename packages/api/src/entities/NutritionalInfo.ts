@@ -52,6 +52,10 @@ export class NutritionalInfo {
 	@prop({ required: true })
 	trans!: NutritionalValue;
 
+	@Field((_type) => NutritionalValue)
+	@prop({ required: true })
+	sugar!: NutritionalValue;
+
 	@Field((_type) => [NutritionalValue])
 	@arrayProp({ items: NutritionalValue, default: [] })
 	vitamins!: NutritionalValue[];

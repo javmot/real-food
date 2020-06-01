@@ -1,0 +1,15 @@
+export const ENERGY_ID = "409";
+export const FAT_ID = "410";
+export const PROTEIN_ID = "416";
+export const CARBOHYDRATE_ID = "53";
+export const FIBRE_ID = "307";
+export const WATER_ID = "417";
+export const ALCOHOL_ID = "404";
+export const MONOUNSATURATED_ID = "282";
+export const POLYUNSATURATED_ID = "287";
+export const SATURATED_ID = "299";
+export const CHOLESTEROL_ID = "433";
+export const TRANS_ID = "302";
+export const SUGAR_ID = "446";
+export const VITAMINS_ID = "6";
+export const MINERALS_ID = "7";

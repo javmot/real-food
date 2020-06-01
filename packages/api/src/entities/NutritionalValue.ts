@@ -13,6 +13,10 @@ export class NutritionalValue {
 
 	@Field()
 	@prop({ required: true })
+	quantity!: number;
+
+	@Field()
+	@prop({ required: true })
 	unit!: string;
 }
 
