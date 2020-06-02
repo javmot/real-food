@@ -4,6 +4,7 @@ import { getGroupsQuery, getGroupQuery, getFoodQuery } from "./xmlQueries";
 import foodItemsProxy from "../proxies/foodItemsProxy";
 import foodGroupsProxy from "../proxies/foodGroupsProxy";
 import ingredientProxy from "../proxies/ingredientProxy";
+import { log } from "./utils";
 
 const headers = {
 	"content-type": "text/xml",
@@ -38,6 +39,7 @@ export default class BedcaAPI extends RESTDataSource {
 			.then(parseStringPromise)
 			.then(parseResponse)
 			.then((food) => food[0])
+			.then(log)
 			.then(ingredientProxy);
 	}
 }

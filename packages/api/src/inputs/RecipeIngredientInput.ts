@@ -11,6 +11,6 @@ export class RecipeIngredientInput implements Partial<RecipeIngredient> {
 	@Field()
 	quantity!: number;
 
-	@Field()
-	name!: string;
+	@Field({ nullable: true })
+	name?: string;
 }

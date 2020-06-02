@@ -17,7 +17,7 @@ export class Ingredient {
 	name!: string;
 
 	@Field((_type) => NutritionalInfo)
-	@prop({ required: true })
+	@prop({ required: true, _id: false })
 	nutritionalInfo!: NutritionalInfo;
 
 	@Field((_type) => [Recipe])

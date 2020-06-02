@@ -2,9 +2,11 @@ import { IngredientInterface } from "../entities/Ingredient";
 import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
 import nutritionalInfoProxy from "./nutritionalInfoProxy";
 
-export default function nutritionalValueProxy(
+export default function IngredientProxy(
 	nutritionalInfoBedca: any
-): IngredientInterface {
+): IngredientInterface | null {
+	if (!nutritionalInfoBedca) return null;
+
 	return {
 		get externalId(): string {
 			return (

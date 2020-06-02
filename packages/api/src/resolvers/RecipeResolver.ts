@@ -22,72 +22,6 @@ import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
 import { RecipeIngredient } from "../entities/RecipeIngredient";
 
-const ADD = true;
-const REMOVE = false;
-
-// const parseFoodValues = (ingredient: RecipeIngredientInput, add: boolean) => (
-// 	values: Array<any>
-// ) => {
-// 	const operator = add ? 1 : -1;
-// 	return values.map((value) => ({
-// 		...value,
-// 		total: operator * ((value.total * ingredient.quantity) / 100),
-// 	}));
-// };
-
-const parseIngredient = (
-	ingredient: Ingredient,
-	ingredientInput: RecipeIngredientInput
-): RecipeIngredient => ({
-	externalId: ingredient.externalId,
-	name: ingredient.name,
-	quantity: ingredientInput.quantity,
-	details: ingredient._id,
-});
-
-const getIngredientFromBedca = async (
-	ingredientInput: RecipeIngredientInput,
-	bedcaAPI: BedcaAPI
-): Promise<RecipeIngredient> => {
-	const ingredient = await bedcaAPI.getIngredient(ingredientInput.externalId);
-	return parseIngredient(
-		await IngredientModel.create(ingredient),
-		ingredientInput
-	);
-};
-
-const getIngredient = async (
-	ingredientInput: RecipeIngredientInput,
-	bedcaApi: BedcaAPI
-) => {
-	const ingredient = await IngredientModel.findOne({
-		externalId: ingredientInput.externalId,
-	});
-	if (ingredient) return parseIngredient(ingredient, ingredientInput);
-
-	return getIngredientFromBedca(ingredientInput, bedcaApi);
-};
-
-const updateIngredient = async (
-	id: string,
-	ingredient: RecipeIngredientInput,
-	add: boolean = ADD
-) => {
-	const recipe = await RecipeModel.findOne({
-		_id: id,
-		// TODO: user,
-	});
-	if (!recipe) return null;
-
-	recipe.ingredients = add
-		? [...recipe.ingredients, ingredient]
-		: recipe.ingredients.filter((i) => {
-				return i.externalId !== ingredient.externalId;
-		  });
-
-	return recipe.save();
-};
-
 @Resolver((_of) => Recipe)
 export default class RecipeResolver {
 	@Query((_returns) => [Recipe], { nullable: false })
@@ -146,19 +80,27 @@ export default class RecipeResolver {
 		@Arg("ingredient") ingredientInput: RecipeIngredientInput,
 		@Ctx() ctx: Context
 	) {
-		return updateIngredient(
-			id,
-			await getIngredient(ingredientInput, ctx.dataSources.bedcaAPI),
-			ADD
+		const recipe = await findRecipe(id);
+
+		recipe.ingredients.push(
+			await getIngredient(ingredientInput, ctx.dataSources.bedcaAPI)
 		);
+
+		return recipe.save();
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
-	removeIngredient(
+	async removeIngredient(
 		@Arg("id") id: string,
 		@Arg("ingredient") ingredient: RecipeIngredientInput
 	) {
-		return updateIngredient(id, ingredient, REMOVE);
+		const recipe = await findRecipe(id);
+
+		recipe.ingredients = recipe.ingredients.filter((i) => {
+			return i.externalId !== ingredient.externalId;
+		});
+
+		return recipe.save();
 	}
 
 	@FieldResolver((_type) => RecipeCategory)
@@ -172,32 +114,56 @@ export default class RecipeResolver {
 	}
 }
 
-// function mergeFoodValues(foodValues: any) {
-// 	const totalReducer = (memo: any, value: any) => {
-// 		return {
-// 			...memo,
-// 			total: memo.total + value.total,
-// 		};
-// 	};
-// 	const grouped = groupBy(foodValues, (value) => value.externalId);
+const findRecipe = async (id: string) => {
+	const recipe = await RecipeModel.findOne({
+		_id: id,
+		// TODO: user,
+	});
+	if (!recipe) throw new Error("Recipe not found");
 
-// 	return map(grouped, (group) => {
-// 		return group.reduce(totalReducer, {
-// 			externalId: group[0].externalId,
-// 			name: group[0].name,
-// 			unit: group[0].unit,
-// 			total: 0,
-// 		});
-// 	});
-// }
+	return recipe;
+};
 
-// function requestIngredientValues(
-// 	ingredient: RecipeIngredientInput,
-// 	add: boolean,
-// 	bedcaApi: BedcaAPI
-// ) {
-// 	return bedcaApi
-// 		.getFood(ingredient.externalId)
-// 		.then((foodInfo) => (foodInfo ? foodInfo.foodValues : []))
-// 		.then(parseFoodValues(ingredient, add));
-// }
+const parseIngredient = (
+	ingredient: Ingredient,
+	ingredientInput: RecipeIngredientInput
+): RecipeIngredient => ({
+	externalId: ingredient.externalId,
+	name: ingredient.name,
+	quantity: ingredientInput.quantity,
+	details: ingredient._id,
+});
+
+const getIngredientFromBedca = async (
+	ingredientInput: RecipeIngredientInput,
+	bedcaAPI: BedcaAPI
+): Promise<RecipeIngredient | null> => {
+	const ingredient = await bedcaAPI.getIngredient(ingredientInput.externalId);
+
+	return (
+		ingredient &&
+		parseIngredient(await IngredientModel.create(ingredient), ingredientInput)
+	);
+};
+
+const getIngredientFromDB = async (
+	ingredientInput: RecipeIngredientInput
+): Promise<RecipeIngredient | null> => {
+	const ingredient = await IngredientModel.findOne({
+		externalId: ingredientInput.externalId,
+	});
+	return ingredient && parseIngredient(ingredient, ingredientInput);
+};
+
+const getIngredient = async (
+	ingredientInput: RecipeIngredientInput,
+	bedcaApi: BedcaAPI
+): Promise<RecipeIngredient> => {
+	const ingredient =
+		(await getIngredientFromDB(ingredientInput)) ||
+		(await getIngredientFromBedca(ingredientInput, bedcaApi));
+
+	if (!ingredient) throw new Error("Ingredient input not valid");
+
+	return ingredient;
+};

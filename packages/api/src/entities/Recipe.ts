@@ -3,7 +3,7 @@ import {
 	prop,
 	arrayProp,
 	index,
-	plugin,
+	pre,
 	getModelForClass,
 	Ref,
 } from "@typegoose/typegoose";
@@ -13,11 +13,11 @@ import { RecipeStep } from "./RecipeStep";
 import { RecipeIngredient } from "./RecipeIngredient";
 import { NutritionalInfo } from "./NutritionalInfo";
 import { RecipeCategory } from "./RecipeCategory";
+import { updateNutritionalInfo, uniqueIngredients } from "../lib/hooks";
 
-const arrayUniquePlugin = require("mongoose-unique-array");
-
-@plugin(arrayUniquePlugin)
-@index({ title: 1, userId: 1 }, { unique: true })
+@index({ userId: 1, title: 1 }, { unique: true })
+@pre("validate", uniqueIngredients)
+@pre("save", updateNutritionalInfo)
 @ObjectType({ description: "The Recipe model" })
 export class Recipe extends TimeStamps {
 	@Field((_type) => ID)
@@ -48,7 +48,7 @@ export class Recipe extends TimeStamps {
 	ingredients!: RecipeIngredient[];
 
 	@Field((_type) => NutritionalInfo, { nullable: true })
-	@prop({ type: NutritionalInfo, default: {} })
+	@prop({ type: NutritionalInfo, _id: false, default: {} })
 	nutritionalInfo?: NutritionalInfo;
 
 	@Field((_type) => String)

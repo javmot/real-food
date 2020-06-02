@@ -5,7 +5,7 @@ import { Ingredient } from "./Ingredient";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
 export class RecipeIngredient {
-	@prop({ required: true, unique: true })
+	@prop({ required: true })
 	externalId!: string;
 
 	@prop({ required: true })
