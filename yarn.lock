@@ -12559,11 +12559,6 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose-unique-array@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/mongoose-unique-array/-/mongoose-unique-array-0.3.4.tgz#4259bbc3f1eeacd1640dbea8589a521486ea6048"
-  integrity sha512-SVftEer+20hBItf/b66vdT7LlhXkzVAM1l40d9ZjxccXf99CbHEWxwWL6A7/V/fMDPct/FVBi3SQ0c9hnfHr3A==
-
 mongoose@^5.9.10:
   version "5.9.14"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.9.14.tgz#73dff38457c254f6a0eff2741642a62c5138b4c8"
