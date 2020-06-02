@@ -10,7 +10,7 @@
 		"start": "ts-node src/server.ts",
 		"pre-commit": "yarn lint",
 		"lint": "pretty-quick && eslint src/**/*.{ts,js} --cache --fix",
-		"reset-db": "ts-node src/lib/dbSeed.ts"
+		"reset-db": "ts-node dbSeed.ts"
 	},
 	"dependencies": {
 		"@typegoose/typegoose": "^7.0.0",

@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { IncomingHttpHeaders } from "http";
 import { DataSources } from "apollo-server-core/dist/graphqlOptions";
-import { IFoodDataSources } from "../lib/IFoodDataSource";
 import BedcaAPI from "../lib/BedcaAPI";
 import { UserModel } from "../entities/User";
+
+export interface IFoodDataSources {
+	bedcaAPI: BedcaAPI;
+}
 
 export interface Context {
 	headers: IncomingHttpHeaders;
