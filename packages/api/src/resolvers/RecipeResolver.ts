@@ -14,13 +14,11 @@ import {
 	RecipeCategoryModel,
 } from "../entities/RecipeCategory";
 import { User, UserModel } from "../entities/User";
-import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { CreateRecipeInput } from "../inputs/RecipeInput";
 import { Context } from "../config/context";
-import BedcaAPI from "../lib/BedcaAPI";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
-import { RecipeIngredient } from "../entities/RecipeIngredient";
+import { getIngredient } from "../lib/ingredientService";
 
 @Resolver((_of) => Recipe)
 export default class RecipeResolver {
@@ -122,48 +120,4 @@ const findRecipe = async (id: string) => {
 	if (!recipe) throw new Error("Recipe not found");
 
 	return recipe;
-};
-
-const parseIngredient = (
-	ingredient: Ingredient,
-	ingredientInput: RecipeIngredientInput
-): RecipeIngredient => ({
-	externalId: ingredient.externalId,
-	name: ingredient.name,
-	quantity: ingredientInput.quantity,
-	details: ingredient._id,
-});
-
-const getIngredientFromBedca = async (
-	ingredientInput: RecipeIngredientInput,
-	bedcaAPI: BedcaAPI
-): Promise<RecipeIngredient | null> => {
-	const ingredient = await bedcaAPI.getIngredient(ingredientInput.externalId);
-
-	return (
-		ingredient &&
-		parseIngredient(await IngredientModel.create(ingredient), ingredientInput)
-	);
-};
-
-const getIngredientFromDB = async (
-	ingredientInput: RecipeIngredientInput
-): Promise<RecipeIngredient | null> => {
-	const ingredient = await IngredientModel.findOne({
-		externalId: ingredientInput.externalId,
-	});
-	return ingredient && parseIngredient(ingredient, ingredientInput);
-};
-
-const getIngredient = async (
-	ingredientInput: RecipeIngredientInput,
-	bedcaApi: BedcaAPI
-): Promise<RecipeIngredient> => {
-	const ingredient =
-		(await getIngredientFromDB(ingredientInput)) ||
-		(await getIngredientFromBedca(ingredientInput, bedcaApi));
-
-	if (!ingredient) throw new Error("Ingredient input not valid");
-
-	return ingredient;
 };
