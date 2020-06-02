@@ -1,8 +1,8 @@
 import { groupBy } from "lodash";
-import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
-import arrayProxy from "./arrayProxy";
-import nutritionalValueProxy from "./nutritionalValueProxy";
-import { NutritionalValueInterface } from "../entities/NutritionalValue";
+import { NutritionalInfoInterface } from "../../entities/NutritionalInfo";
+import arrayProxy from "../arrayProxy";
+import nutritionalValueMapper from "./nutritionalValueMapper";
+import { NutritionalValueInterface } from "../../entities/NutritionalValue";
 import {
 	ENERGY_ID,
 	FAT_ID,
@@ -19,7 +19,7 @@ import {
 	TRANS_ID,
 	VITAMINS_ID,
 	MINERALS_ID,
-} from "../config/constants";
+} from "../../config/constants";
 
 const defaultValue = (id: string): NutritionalValueInterface => ({
 	externalId: id,
@@ -33,10 +33,10 @@ const getNutritionalValue = (
 	id: string
 ): NutritionalValueInterface =>
 	groupedValues[id]
-		? nutritionalValueProxy(groupedValues[id])
+		? nutritionalValueMapper(groupedValues[id])
 		: defaultValue(id);
 
-export default function nutritionalInfoProxy(
+export default function nutritionalInfoMapper(
 	foodValuesBedca: any
 ): NutritionalInfoInterface {
 	const groupedValues = groupBy(foodValuesBedca, (value) => value.c_id[0]);
@@ -99,7 +99,7 @@ export default function nutritionalInfoProxy(
 				foodValuesBedca.filter(
 					(value: any) => value.componentgroup_id[0] === VITAMINS_ID
 				),
-				nutritionalValueProxy
+				nutritionalValueMapper
 			);
 		},
 
@@ -108,7 +108,7 @@ export default function nutritionalInfoProxy(
 				foodValuesBedca.filter(
 					(value: any) => value.componentgroup_id[0] === MINERALS_ID
 				),
-				nutritionalValueProxy
+				nutritionalValueMapper
 			);
 		},
 	};

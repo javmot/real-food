@@ -1,8 +1,8 @@
-import { IngredientInterface } from "../entities/Ingredient";
-import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
-import nutritionalInfoProxy from "./nutritionalInfoProxy";
+import { IngredientInterface } from "../../entities/Ingredient";
+import { NutritionalInfoInterface } from "../../entities/NutritionalInfo";
+import nutritionalInfoMapper from "./nutritionalInfoMapper";
 
-export default function IngredientProxy(
+export default function IngredientMapper(
 	nutritionalInfoBedca: any
 ): IngredientInterface | null {
 	if (!nutritionalInfoBedca) return null;
@@ -27,7 +27,7 @@ export default function IngredientProxy(
 		get nutritionalInfo(): NutritionalInfoInterface {
 			return (
 				nutritionalInfoBedca &&
-				nutritionalInfoProxy(nutritionalInfoBedca.foodvalue)
+				nutritionalInfoMapper(nutritionalInfoBedca.foodvalue)
 			);
 		},
 	};
