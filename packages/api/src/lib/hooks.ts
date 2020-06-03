@@ -1,6 +1,6 @@
 import { DocumentType } from "@typegoose/typegoose";
 import { Recipe } from "../entities/Recipe";
-import { getNutritionalInfoByIngredients } from "./nutritionalInfoService";
+import { buildNutritionalInfo } from "./nutritionalInfoService";
 
 export type HookNextErrorFn = (err?: Error) => void;
 export type HookNextEmptyFn = () => void;
@@ -18,11 +18,13 @@ export const updateNutritionalInfo: PreHookFn<Recipe> = function (
 ) {
 	if (!this.isModified("ingredients")) return next();
 
-	getNutritionalInfoByIngredients(this.ingredients)
+	this.populate("ingredients.details")
+		.execPopulate()
+		.then(() => buildNutritionalInfo(this.ingredients))
 		.then((nutritionalInfo) => {
 			this.nutritionalInfo = nutritionalInfo;
+			next();
 		})
-		.then(() => next())
 		.catch(next);
 };
 

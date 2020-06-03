@@ -1,8 +1,9 @@
 import { assignWith } from "lodash";
-import { Ingredient, IngredientModel } from "../entities/Ingredient";
+import { Ingredient } from "../entities/Ingredient";
 import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
 import { RecipeIngredient } from "../entities/RecipeIngredient";
 import { NutritionalValueInterface } from "../entities/NutritionalValue";
+import { isDocument } from "@typegoose/typegoose";
 
 export interface IngredientJoined {
 	quantity: number;
@@ -44,49 +45,20 @@ export const mergeNutritionalValues = (ingredientQuantity: number) => (
 };
 
 export const buildNutritionalInfo = (
-	ingredients: Array<IngredientJoined | null>
+	ingredients: Array<RecipeIngredient>
 ): NutritionalInfoInterface | undefined => {
 	return ingredients.reduce(
 		(
 			memo: NutritionalInfoInterface | undefined,
-			ingredient: IngredientJoined | null
-		): NutritionalInfoInterface | undefined => {
-			return assignWith(
-				memo,
-				ingredient?.ingredientDetails.nutritionalInfo,
-				mergeNutritionalValues(ingredient?.quantity || 0)
-			);
-		},
+			ingredient: RecipeIngredient
+		): NutritionalInfoInterface | undefined =>
+			isDocument(ingredient.details)
+				? assignWith(
+						memo,
+						ingredient.details.nutritionalInfo,
+						mergeNutritionalValues(ingredient?.quantity || 0)
+				  )
+				: memo,
 		undefined
 	);
-};
-
-export const getIngredientsJoined = (
-	ingredients: Array<RecipeIngredient>
-): Promise<(IngredientJoined | null)[]> => {
-	return Promise.all(
-		ingredients.map(async (ingredient: RecipeIngredient) => {
-			const ingredientDetails = await IngredientModel.findById(
-				ingredient.details
-			)
-				.lean()
-				.exec();
-			return (
-				ingredientDetails && {
-					quantity: ingredient.quantity,
-					ingredientDetails,
-				}
-			);
-		})
-	);
-};
-
-export const getNutritionalInfoByIngredients = async (
-	ingredients: Array<RecipeIngredient>
-): Promise<NutritionalInfoInterface | undefined> => {
-	const ingredientsJoined: Array<IngredientJoined | null> = await getIngredientsJoined(
-		ingredients
-	);
-
-	return buildNutritionalInfo(ingredientsJoined);
 };
