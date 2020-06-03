@@ -1,4 +1,4 @@
-import { assignWith, differenceBy } from "lodash";
+import { assignWith } from "lodash";
 import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
 import { RecipeIngredient } from "../entities/RecipeIngredient";
@@ -22,41 +22,25 @@ export const accumulateQuantity = (
 ): number => accummulate + (nutritionalQuantity * ingredientQuantity) / 100;
 
 export const buildNutritionalValue = (
-	current: NutritionalValueInterface | undefined,
+	memo: NutritionalValueInterface | undefined,
 	newValue: NutritionalValueInterface,
 	ingredientQuantity: number
 ) => ({
 	...newValue,
 	quantity: accumulateQuantity(
-		current?.quantity || 0,
+		memo?.quantity || 0,
 		newValue.quantity,
 		ingredientQuantity
 	),
 });
 
-export const mergeNutritionalValuesGroup = (
-	obj: Array<NutritionalValueInterface> | undefined = [],
-	src: Array<NutritionalValueInterface>,
-	ingredientQuantity: number
-) => {
-	const calculated = src.map((value) => {
-		const current = obj.find(
-			(serched) => serched.externalId === value.externalId
-		);
-		return buildNutritionalValue(current, value, ingredientQuantity);
-	});
-	return [...calculated, ...differenceBy(obj, src, "externalId")];
-};
-
 export const mergeNutritionalValues = (ingredientQuantity: number) => (
-	obj: any,
-	src: any
+	memo: any,
+	newValue: any
 ) => {
-	return Array.isArray(src)
-		? mergeNutritionalValuesGroup(obj, src, ingredientQuantity)
-		: isNutritionalValue(src)
-		? buildNutritionalValue(obj, src, ingredientQuantity)
-		: src;
+	return isNutritionalValue(newValue)
+		? buildNutritionalValue(memo, newValue, ingredientQuantity)
+		: newValue;
 };
 
 export const buildNutritionalInfo = (
@@ -82,7 +66,7 @@ export const getIngredientsJoined = (
 ): Promise<(IngredientJoined | null)[]> => {
 	return Promise.all(
 		ingredients.map(async (ingredient: RecipeIngredient) => {
-			const ingredientDetails: Ingredient | null = await IngredientModel.findById(
+			const ingredientDetails = await IngredientModel.findById(
 				ingredient.details
 			)
 				.lean()

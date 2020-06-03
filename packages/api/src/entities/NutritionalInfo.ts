@@ -56,13 +56,81 @@ export class NutritionalInfo {
 	@prop({ required: false, _id: false })
 	sugar!: NutritionalValue;
 
-	@Field((_type) => [NutritionalValue])
-	@arrayProp({ items: NutritionalValue, default: [] })
-	vitamins?: NutritionalValue[];
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminA: NutritionalValue;
 
-	@Field((_type) => [NutritionalValue])
-	@arrayProp({ items: NutritionalValue, default: [] })
-	minerals?: NutritionalValue[];
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminD: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminE: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminB9: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminB3: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminB2: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminB1: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminB12: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminB6: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	vitaminC: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	calcium: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	iron: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	potasium: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	magnesium: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	sodium: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	phosphorus: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	iodide: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	selenium: NutritionalValue;
+
+	@Field((_type) => NutritionalValue)
+	@prop({ required: false, _id: false })
+	zinc: NutritionalValue;
 }
 
 export interface NutritionalInfoInterface extends NutritionalInfo {}
