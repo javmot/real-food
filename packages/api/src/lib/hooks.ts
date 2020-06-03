@@ -22,7 +22,6 @@ export const updateNutritionalInfo: PreHookFn<Recipe> = function (
 
 	getNutritionalInfoByIngredients(this.ingredients)
 		.then((nutritionalInfo) => {
-			console.log("nutritionalInfo :>> ", nutritionalInfo);
 			this.nutritionalInfo = nutritionalInfo;
 		})
 		.then(() => next())

@@ -1,77 +1,99 @@
-import { assignWith } from "lodash";
+import { assignWith, differenceBy } from "lodash";
 import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
-import { NutritionalValue } from "../entities/NutritionalValue";
-import {
-	RecipeIngredient,
-	RecipeIngredientInterface,
-} from "../entities/RecipeIngredient";
+import { RecipeIngredient } from "../entities/RecipeIngredient";
+import { NutritionalValueInterface } from "../entities/NutritionalValue";
 
-interface IngredientJoined extends RecipeIngredientInterface {
+export interface IngredientJoined {
+	quantity: number;
 	ingredientDetails: Ingredient;
 }
 
-const isNutritionalValue = (value: any) => {
-	return value.externalId !== undefined && value.quantity !== undefined;
+export const isNutritionalValue = (value: any) => {
+	return (
+		value && value.externalId !== undefined && value.quantity !== undefined
+	);
 };
 
-const mergeNutritionalValues = (ingredientQuantity: number) => (
+export const accumulateQuantity = (
+	accummulate: number,
+	nutritionalQuantity: number,
+	ingredientQuantity: number
+): number => accummulate + (nutritionalQuantity * ingredientQuantity) / 100;
+
+export const buildNutritionalValue = (
+	current: NutritionalValueInterface | undefined,
+	newValue: NutritionalValueInterface,
+	ingredientQuantity: number
+) => ({
+	...newValue,
+	quantity: accumulateQuantity(
+		current?.quantity || 0,
+		newValue.quantity,
+		ingredientQuantity
+	),
+});
+
+export const mergeNutritionalValuesGroup = (
+	obj: Array<NutritionalValueInterface> | undefined = [],
+	src: Array<NutritionalValueInterface>,
+	ingredientQuantity: number
+) => {
+	const calculated = src.map((value) => {
+		const current = obj.find(
+			(serched) => serched.externalId === value.externalId
+		);
+		return buildNutritionalValue(current, value, ingredientQuantity);
+	});
+	return [...calculated, ...differenceBy(obj, src, "externalId")];
+};
+
+export const mergeNutritionalValues = (ingredientQuantity: number) => (
 	obj: any,
-	src: NutritionalValue | Array<any>
-): NutritionalValue | Array<any> => {
-	const memo: any = obj || {};
+	src: any
+) => {
 	return Array.isArray(src)
-		? []
+		? mergeNutritionalValuesGroup(obj, src, ingredientQuantity)
 		: isNutritionalValue(src)
-		? {
-				...src,
-				quantity:
-					(memo.quantity || 0) + (src.quantity * ingredientQuantity) / 100,
-		  }
+		? buildNutritionalValue(obj, src, ingredientQuantity)
 		: src;
 };
 
-const buildNutritionalInfo = (
+export const buildNutritionalInfo = (
 	ingredients: Array<IngredientJoined | null>
 ): NutritionalInfoInterface | undefined => {
-	if (!ingredients.length) return;
-
 	return ingredients.reduce(
 		(
 			memo: NutritionalInfoInterface | undefined,
 			ingredient: IngredientJoined | null
-		): NutritionalInfoInterface => {
+		): NutritionalInfoInterface | undefined => {
 			return assignWith(
 				memo,
-				ingredient && ingredient.ingredientDetails.nutritionalInfo,
-				mergeNutritionalValues(ingredient ? ingredient.quantity : 0)
+				ingredient?.ingredientDetails.nutritionalInfo,
+				mergeNutritionalValues(ingredient?.quantity || 0)
 			);
 		},
 		undefined
 	);
 };
 
-const getIngredientsJoined = (
+export const getIngredientsJoined = (
 	ingredients: Array<RecipeIngredient>
 ): Promise<(IngredientJoined | null)[]> => {
 	return Promise.all(
-		ingredients.map(
-			async (
-				ingredient: RecipeIngredient
-			): Promise<IngredientJoined | null> => {
-				const ingredientDetails: Ingredient | null = await IngredientModel.findById(
-					ingredient.details
-				)
-					.lean()
-					.exec();
-				return (
-					ingredientDetails && {
-						...ingredient,
-						ingredientDetails,
-					}
-				);
-			}
-		)
+		ingredients.map(async (ingredient: RecipeIngredient) => {
+			const ingredientDetails: Ingredient | null = await IngredientModel.findById(
+				ingredient.details
+			)
+				.lean()
+				.exec();
+			return (
+				ingredientDetails && {
+					quantity: ingredient.quantity,
+					ingredientDetails,
+				}
+			);
+		})
 	);
 };
 
