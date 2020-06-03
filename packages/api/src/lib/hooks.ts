@@ -1,7 +1,5 @@
 import { DocumentType } from "@typegoose/typegoose";
 import { Recipe } from "../entities/Recipe";
-import { IngredientModel, Ingredient } from "../entities/Ingredient";
-import { RecipeIngredient } from "../entities/RecipeIngredient";
 import { getNutritionalInfoByIngredients } from "./nutritionalInfoService";
 
 export type HookNextErrorFn = (err?: Error) => void;

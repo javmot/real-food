@@ -1,4 +1,5 @@
 import { ObjectType, Field, ID, Int } from "type-graphql";
+import { ObjectId } from "mongodb";
 import {
 	prop,
 	arrayProp,
@@ -21,7 +22,7 @@ import { updateNutritionalInfo, uniqueIngredients } from "../lib/hooks";
 @ObjectType({ description: "The Recipe model" })
 export class Recipe extends TimeStamps {
 	@Field((_type) => ID)
-	id?: string;
+	_id!: ObjectId;
 
 	@Field()
 	@prop({ required: true })
@@ -48,7 +49,7 @@ export class Recipe extends TimeStamps {
 	ingredients!: RecipeIngredient[];
 
 	@Field((_type) => NutritionalInfo, { nullable: true })
-	@prop({ type: NutritionalInfo, _id: false, default: {} })
+	@prop({ type: NutritionalInfo, _id: false })
 	nutritionalInfo?: NutritionalInfo;
 
 	@Field((_type) => String)

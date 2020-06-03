@@ -18,13 +18,19 @@ import { CreateRecipeInput } from "../inputs/RecipeInput";
 import { Context } from "../config/context";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
-import { getIngredient } from "../lib/ingredientService";
+import {
+	getIngredient,
+	addRecipeToIngredient,
+	ingredientToRecipeIngredient,
+	removeRecipeFromIngredient,
+	getIngredientFromDB,
+} from "../lib/ingredientService";
 
 @Resolver((_of) => Recipe)
 export default class RecipeResolver {
 	@Query((_returns) => [Recipe], { nullable: false })
 	recipes(@Args() { skip, limit }: PaginationArgs) {
-		return RecipeModel.find()
+		return RecipeModel.find({ active: true })
 			.sort([["updatedAt", -1]])
 			.skip(skip)
 			.limit(limit)
@@ -79,26 +85,34 @@ export default class RecipeResolver {
 		@Ctx() ctx: Context
 	) {
 		const recipe = await findRecipe(id);
+		const ingredient = getIngredient(ingredientInput, ctx.dataSources.bedcaAPI);
 
 		recipe.ingredients.push(
-			await getIngredient(ingredientInput, ctx.dataSources.bedcaAPI)
+			ingredientToRecipeIngredient(await ingredient, ingredientInput)
 		);
+		const updatedRecipe = await recipe.save();
 
-		return recipe.save();
+		addRecipeToIngredient(ingredient, recipe);
+
+		return updatedRecipe;
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
 	async removeIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: RecipeIngredientInput
+		@Arg("ingredient") ingredientInput: RecipeIngredientInput
 	) {
 		const recipe = await findRecipe(id);
 
 		recipe.ingredients = recipe.ingredients.filter((i) => {
-			return i.externalId !== ingredient.externalId;
+			return i.externalId !== ingredientInput.externalId;
 		});
 
-		return recipe.save();
+		const updatedRecipe = await recipe.save();
+
+		removeRecipeFromIngredient(getIngredientFromDB(ingredientInput), recipe);
+
+		return updatedRecipe;
 	}
 
 	@FieldResolver((_type) => RecipeCategory)

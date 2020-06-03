@@ -21,8 +21,8 @@ export class Ingredient {
 	nutritionalInfo!: NutritionalInfo;
 
 	@Field((_type) => [Recipe])
-	@arrayProp({ ref: "Recipe", default: [] })
-	recipes?: Ref<Recipe>[];
+	@arrayProp({ ref: "Recipe", required: true, default: [] })
+	recipes!: Ref<Recipe>[];
 }
 
 export const IngredientModel = getModelForClass(Ingredient);

@@ -64,20 +64,37 @@ TO-DO
 """
 type NutritionalInfo {
 	alcohol: NutritionalValue!
+	calcium: NutritionalValue!
 	carbohydrate: NutritionalValue!
 	cholesterol: NutritionalValue!
 	energy: NutritionalValue!
 	fat: NutritionalValue!
 	fibre: NutritionalValue!
-	minerals: [NutritionalValue!]!
+	iodide: NutritionalValue!
+	iron: NutritionalValue!
+	magnesium: NutritionalValue!
 	monounsaturated: NutritionalValue!
+	phosphorus: NutritionalValue!
 	polyunsaturated: NutritionalValue!
+	potasium: NutritionalValue!
 	protein: NutritionalValue!
 	saturated: NutritionalValue!
+	selenium: NutritionalValue!
+	sodium: NutritionalValue!
 	sugar: NutritionalValue!
 	trans: NutritionalValue!
-	vitamins: [NutritionalValue!]!
+	vitaminA: NutritionalValue!
+	vitaminB1: NutritionalValue!
+	vitaminB12: NutritionalValue!
+	vitaminB2: NutritionalValue!
+	vitaminB3: NutritionalValue!
+	vitaminB6: NutritionalValue!
+	vitaminB9: NutritionalValue!
+	vitaminC: NutritionalValue!
+	vitaminD: NutritionalValue!
+	vitaminE: NutritionalValue!
 	water: NutritionalValue!
+	zinc: NutritionalValue!
 }
 
 """
@@ -94,6 +111,7 @@ type Query {
 	foodGroup(input: String!): [FoodItem!]!
 	foodGroups: [FoodGroup!]!
 	ingredient(input: String!): Ingredient
+	ingredients: [Ingredient!]
 	me: User!
 	recipe(id: String!): Recipe
 	recipeByUserAndTitle(title: String!, username: String!): Recipe
@@ -108,10 +126,10 @@ type Query {
 The Recipe model
 """
 type Recipe {
+	_id: ID!
 	category: RecipeCategory!
 	categoryId: String!
 	createdAt: DateTime!
-	id: ID!
 	ingredients: [RecipeIngredient!]!
 	nutritionalInfo: NutritionalInfo
 	servings: Int!

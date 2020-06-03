@@ -19,7 +19,7 @@ export class RecipeIngredient {
 	quantity!: number;
 
 	@Field((_type) => Ingredient)
-	@prop({ ref: "Ingredient", required: false })
+	@prop({ ref: "Ingredient", required: true })
 	details?: Ref<Ingredient>;
 }
 

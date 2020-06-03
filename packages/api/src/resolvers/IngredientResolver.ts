@@ -1,5 +1,5 @@
 import { Resolver, Arg, Query, Ctx } from "type-graphql";
-import { Ingredient } from "../entities/Ingredient";
+import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { Context } from "../config/context";
 
 @Resolver((_of) => Ingredient)
@@ -10,5 +10,10 @@ export default class IngredientResolver {
 		@Ctx() { dataSources }: Context
 	) {
 		return dataSources.bedcaAPI.getIngredient(ingredientId);
+	}
+
+	@Query((_returns) => [Ingredient], { nullable: true })
+	ingredients() {
+		return IngredientModel.find().populate("recipes");
 	}
 }

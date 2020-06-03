@@ -1,10 +1,12 @@
+import { DocumentType, isRefType } from "@typegoose/typegoose";
 import { RecipeIngredient } from "../entities/RecipeIngredient";
 import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import BedcaAPI from "./BedcaAPI";
+import { Recipe } from "../entities/Recipe";
 
-const ingredientToRecipeIngredient = (
-	ingredient: Ingredient,
+export const ingredientToRecipeIngredient = (
+	ingredient: DocumentType<Ingredient>,
 	ingredientInput: RecipeIngredientInput
 ): RecipeIngredient => ({
 	externalId: ingredient.externalId,
@@ -13,36 +15,27 @@ const ingredientToRecipeIngredient = (
 	details: ingredient._id,
 });
 
-const getIngredientFromBedca = async (
+export const getIngredientFromBedca = async (
 	ingredientInput: RecipeIngredientInput,
 	bedcaAPI: BedcaAPI
-): Promise<RecipeIngredient | null> => {
+): Promise<DocumentType<Ingredient> | null> => {
 	const ingredient = await bedcaAPI.getIngredient(ingredientInput.externalId);
 
-	return (
-		ingredient &&
-		ingredientToRecipeIngredient(
-			await IngredientModel.create(ingredient),
-			ingredientInput
-		)
-	);
+	return ingredient && IngredientModel.create(ingredient);
 };
 
-const getIngredientFromDB = async (
+export const getIngredientFromDB = async (
 	ingredientInput: RecipeIngredientInput
-): Promise<RecipeIngredient | null> => {
-	const ingredient = await IngredientModel.findOne({
+): Promise<DocumentType<Ingredient> | null> => {
+	return IngredientModel.findOne({
 		externalId: ingredientInput.externalId,
 	});
-	return (
-		ingredient && ingredientToRecipeIngredient(ingredient, ingredientInput)
-	);
 };
 
 export const getIngredient = async (
 	ingredientInput: RecipeIngredientInput,
 	bedcaApi: BedcaAPI
-): Promise<RecipeIngredient> => {
+): Promise<DocumentType<Ingredient>> => {
 	const ingredient =
 		(await getIngredientFromDB(ingredientInput)) ||
 		(await getIngredientFromBedca(ingredientInput, bedcaApi));
@@ -50,4 +43,31 @@ export const getIngredient = async (
 	if (!ingredient) throw new Error("Ingredient input not valid");
 
 	return ingredient;
+};
+
+export const addRecipeToIngredient = async (
+	ingredientQuery: Promise<DocumentType<Ingredient> | null>,
+	recipe: Recipe
+) => {
+	const ingredient = await ingredientQuery;
+	if (ingredient) {
+		ingredient.recipes.push(recipe._id);
+		ingredient.save();
+	}
+};
+
+export const removeRecipeFromIngredient = async (
+	ingredientQuery: Promise<DocumentType<Ingredient> | null>,
+	recipe: Recipe
+) => {
+	const ingredient = await ingredientQuery;
+	if (ingredient) {
+		ingredient.recipes = ingredient.recipes.filter((ingredientRecipe) => {
+			if (isRefType(ingredientRecipe)) {
+				return !recipe._id.equals(ingredientRecipe);
+			}
+			return true;
+		});
+		ingredient.save();
+	}
 };
