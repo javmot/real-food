@@ -2,7 +2,7 @@ import { DocumentType } from "@typegoose/typegoose";
 import { Recipe } from "../entities/Recipe";
 import { IngredientModel, Ingredient } from "../entities/Ingredient";
 import { RecipeIngredient } from "../entities/RecipeIngredient";
-import { buildNutritionalInfo } from "./nutritionalInfoService";
+import { getNutritionalInfoByIngredients } from "./nutritionalInfoService";
 
 export type HookNextErrorFn = (err?: Error) => void;
 export type HookNextEmptyFn = () => void;
@@ -20,16 +20,12 @@ export const updateNutritionalInfo: PreHookFn<Recipe> = function (
 ) {
 	if (!this.isModified("ingredients")) return next();
 
-	Promise.all(
-		this.ingredients.map(
-			(ingredient: RecipeIngredient): Promise<Ingredient | null> =>
-				IngredientModel.findById(ingredient.details).lean().exec()
-		)
-	)
-		.then((ingredients: any) => {
-			this.nutritionalInfo = buildNutritionalInfo(ingredients.filter(Boolean));
-			next();
+	getNutritionalInfoByIngredients(this.ingredients)
+		.then((nutritionalInfo) => {
+			console.log("nutritionalInfo :>> ", nutritionalInfo);
+			this.nutritionalInfo = nutritionalInfo;
 		})
+		.then(() => next())
 		.catch(next);
 };
 
