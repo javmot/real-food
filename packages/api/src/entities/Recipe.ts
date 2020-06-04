@@ -21,7 +21,7 @@ import { updateNutritionalInfo, uniqueIngredients } from "../lib/hooks";
 @pre("save", updateNutritionalInfo)
 @ObjectType({ description: "The Recipe model" })
 export class Recipe extends TimeStamps {
-	_id!: ObjectId;
+	_id?: ObjectId;
 
 	@Field()
 	@prop({ required: true })

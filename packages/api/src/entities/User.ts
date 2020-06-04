@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 @ObjectType({ description: "The User model" })
 export class User {
-	_id!: ObjectId;
+	_id?: ObjectId;
 
 	@Field()
 	@prop({ required: true, unique: true })

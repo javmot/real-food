@@ -1,5 +1,5 @@
 import { DocumentType, isRefType } from "@typegoose/typegoose";
-import { RecipeIngredient } from "../entities/RecipeIngredient";
+import { RecipeIngredientInterface } from "../entities/RecipeIngredient";
 import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import BedcaAPI from "./BedcaAPI";
@@ -8,7 +8,7 @@ import { Recipe } from "../entities/Recipe";
 export const ingredientToRecipeIngredient = (
 	ingredient: DocumentType<Ingredient>,
 	ingredientInput: RecipeIngredientInput
-): RecipeIngredient => ({
+): RecipeIngredientInterface => ({
 	externalId: ingredient.externalId,
 	name: ingredient.name,
 	quantity: ingredientInput.quantity,

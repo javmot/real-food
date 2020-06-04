@@ -7,7 +7,8 @@ import { RecipeIngredientInput } from "./RecipeIngredientInput";
 import { Ref } from "@typegoose/typegoose";
 
 @InputType()
-export class CreateAllRecipeInput implements Partial<Recipe> {
+export class CreateAllRecipeInput
+	implements Partial<Omit<Recipe, "ingredients">> {
 	@Field()
 	@Length(1, 255)
 	title!: string;

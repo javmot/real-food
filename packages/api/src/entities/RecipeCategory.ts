@@ -4,7 +4,7 @@ import { ObjectId } from "mongodb";
 
 @ObjectType({ description: "The categories of the recipes" })
 export class RecipeCategory {
-	_id!: ObjectId;
+	_id?: ObjectId;
 
 	@Field()
 	@prop({ required: true, unique: true })

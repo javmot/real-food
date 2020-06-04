@@ -7,7 +7,7 @@ import { Recipe } from "./Recipe";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item Info" })
 export class Ingredient {
-	_id!: ObjectId;
+	_id?: ObjectId;
 
 	@prop({ required: true, unique: true })
 	externalId!: string;

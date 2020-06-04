@@ -155,6 +155,7 @@ The bedca Food Item
 type RecipeIngredient implements IFoodItem {
 	details: Ingredient!
 	externalId: ID!
+	id: ID!
 	name: String!
 	quantity: Float!
 }

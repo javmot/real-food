@@ -30,5 +30,9 @@ export default function IngredientMapper(
 				nutritionalInfoMapper(nutritionalInfoBedca.foodvalue)
 			);
 		},
+
+		get recipes(): Array<any> {
+			return [];
+		},
 	};
 }

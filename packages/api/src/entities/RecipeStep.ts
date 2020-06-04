@@ -4,7 +4,7 @@ import { prop, getModelForClass } from "@typegoose/typegoose";
 
 @ObjectType({ description: "Steps Of the Recipe" })
 export class RecipeStep {
-	_id!: ObjectId;
+	_id?: ObjectId;
 
 	@Field()
 	@prop({ required: true })
