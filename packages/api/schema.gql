@@ -4,14 +4,14 @@
 # -----------------------------------------------
 
 input CreateRecipeCategoryInput {
-	title: String!
+  title: String!
 }
 
 input CreateRecipeInput {
-	categoryId: String!
-	servings: Float!
-	time: String!
-	title: String!
+  categoryId: String!
+  servings: Float!
+  time: String!
+  title: String!
 }
 
 """
@@ -19,174 +19,154 @@ The javascript `Date` as string. Type represents date and time as the ISO Date s
 """
 scalar DateTime
 
-"""
-The bedca Food Group
-"""
+"""The bedca Food Group"""
 type FoodGroup {
-	externalId: ID!
-	name: String!
+  externalId: ID!
+  name: String!
 }
 
-"""
-The bedca Food Item
-"""
+"""The bedca Food Item"""
 type FoodItem implements IFoodItem {
-	externalId: ID!
-	name: String!
+  externalId: ID!
+  name: String!
 }
 
 interface IFoodItem {
-	externalId: ID!
-	name: String!
+  externalId: ID!
+  name: String!
 }
 
-"""
-The bedca Food Item Info
-"""
+"""The bedca Food Item Info"""
 type Ingredient implements IFoodItem {
-	externalId: ID!
-	id: ID!
-	name: String!
-	nutritionalInfo: NutritionalInfo!
-	recipes: [Recipe!]!
+  externalId: ID!
+  id: ID!
+  name: String!
+  nutritionalInfo: NutritionalInfo!
+  recipes: [Recipe!]!
 }
 
 type Mutation {
-	addIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
-	createRecipe(input: CreateRecipeInput!): Recipe!
-	createRecipeCategory(input: CreateRecipeCategoryInput!): RecipeCategory!
-	removeIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
-	signup(input: UserInput!): User!
+  addIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
+  createRecipe(input: CreateRecipeInput!): Recipe!
+  createRecipeCategory(input: CreateRecipeCategoryInput!): RecipeCategory!
+  removeIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
+  signup(input: UserInput!): User!
 }
 
-"""
-TO-DO
-"""
+"""TO-DO"""
 type NutritionalInfo {
-	alcohol: NutritionalValue!
-	calcium: NutritionalValue!
-	carbohydrate: NutritionalValue!
-	cholesterol: NutritionalValue!
-	energy: NutritionalValue!
-	fat: NutritionalValue!
-	fibre: NutritionalValue!
-	iodide: NutritionalValue!
-	iron: NutritionalValue!
-	magnesium: NutritionalValue!
-	monounsaturated: NutritionalValue!
-	phosphorus: NutritionalValue!
-	polyunsaturated: NutritionalValue!
-	potasium: NutritionalValue!
-	protein: NutritionalValue!
-	saturated: NutritionalValue!
-	selenium: NutritionalValue!
-	sodium: NutritionalValue!
-	sugar: NutritionalValue!
-	trans: NutritionalValue!
-	vitaminA: NutritionalValue!
-	vitaminB1: NutritionalValue!
-	vitaminB12: NutritionalValue!
-	vitaminB2: NutritionalValue!
-	vitaminB3: NutritionalValue!
-	vitaminB6: NutritionalValue!
-	vitaminB9: NutritionalValue!
-	vitaminC: NutritionalValue!
-	vitaminD: NutritionalValue!
-	vitaminE: NutritionalValue!
-	water: NutritionalValue!
-	zinc: NutritionalValue!
+  alcohol: NutritionalValue!
+  calcium: NutritionalValue!
+  carbohydrate: NutritionalValue!
+  cholesterol: NutritionalValue!
+  energy: NutritionalValue!
+  fat: NutritionalValue!
+  fibre: NutritionalValue!
+  iodide: NutritionalValue!
+  iron: NutritionalValue!
+  magnesium: NutritionalValue!
+  monounsaturated: NutritionalValue!
+  phosphorus: NutritionalValue!
+  polyunsaturated: NutritionalValue!
+  potasium: NutritionalValue!
+  protein: NutritionalValue!
+  saturated: NutritionalValue!
+  selenium: NutritionalValue!
+  sodium: NutritionalValue!
+  sugar: NutritionalValue!
+  trans: NutritionalValue!
+  vitaminA: NutritionalValue!
+  vitaminB1: NutritionalValue!
+  vitaminB12: NutritionalValue!
+  vitaminB2: NutritionalValue!
+  vitaminB3: NutritionalValue!
+  vitaminB6: NutritionalValue!
+  vitaminB9: NutritionalValue!
+  vitaminC: NutritionalValue!
+  vitaminD: NutritionalValue!
+  vitaminE: NutritionalValue!
+  water: NutritionalValue!
+  zinc: NutritionalValue!
 }
 
-"""
-TO-DO
-"""
+"""TO-DO"""
 type NutritionalValue {
-	externalId: String!
-	name: String!
-	quantity: Float!
-	unit: String!
+  externalId: String!
+  name: String!
+  quantity: Float!
+  unit: String!
 }
 
 type Query {
-	foodGroup(input: String!): [FoodItem!]
-	foodGroups: [FoodGroup!]!
-	ingredient(input: String!): Ingredient
-	ingredients: [Ingredient!]
-	me: User
-	recipe(id: String!): Recipe
-	recipeByUserAndTitle(title: String!, username: String!): Recipe
-	recipeCategories: [RecipeCategory!]!
-	recipes(limit: Int = 5, skip: Int = 0): [Recipe!]!
-	recipesByCategory(input: String!): [Recipe!]!
-	recipeSteps(input: String!): [RecipeStep!]
-	signin(input: UserInput!): User
+  foodGroup(input: String!): [FoodItem!]
+  foodGroups: [FoodGroup!]!
+  ingredient(input: String!): Ingredient
+  ingredients: [Ingredient!]
+  me: User
+  recipe(id: String!): Recipe
+  recipeByUserAndTitle(title: String!, username: String!): Recipe
+  recipeCategories: [RecipeCategory!]!
+  recipes(limit: Int = 5, skip: Int = 0): [Recipe!]!
+  recipesByCategory(input: String!): [Recipe!]!
+  recipeSteps(input: String!): [RecipeStep!]
+  signin(input: UserInput!): User
 }
 
-"""
-The Recipe model
-"""
+"""The Recipe model"""
 type Recipe {
-	category: RecipeCategory!
-	categoryId: String!
-	createdAt: DateTime!
-	id: ID!
-	ingredients: [RecipeIngredient!]!
-	nutritionalInfo: NutritionalInfo
-	servings: Int!
-	steps: [RecipeStep!]!
-	time: String!
-	title: String!
-	updatedAt: DateTime!
-	user: User!
-	userId: String!
+  category: RecipeCategory!
+  categoryId: String!
+  createdAt: DateTime!
+  id: ID!
+  ingredients: [RecipeIngredient!]!
+  nutritionalInfo: NutritionalInfo
+  servings: Int!
+  steps: [RecipeStep!]!
+  time: String!
+  title: String!
+  updatedAt: DateTime!
+  user: User!
+  userId: String!
 }
 
-"""
-The categories of the recipes
-"""
+"""The categories of the recipes"""
 type RecipeCategory {
-	id: ID!
-	title: String!
+  id: ID!
+  title: String!
 }
 
-"""
-The bedca Food Item
-"""
+"""The bedca Food Item"""
 type RecipeIngredient implements IFoodItem {
-	details: Ingredient!
-	externalId: ID!
-	id: ID!
-	name: String!
-	quantity: Float!
+  details: Ingredient!
+  externalId: ID!
+  id: ID!
+  name: String!
+  quantity: Float!
 }
 
 input RecipeIngredientInput {
-	externalId: String!
-	name: String
-	quantity: Float!
+  externalId: String!
+  name: String
+  quantity: Float!
 }
 
-"""
-Steps Of the Recipe
-"""
+"""Steps Of the Recipe"""
 type RecipeStep {
-	description: String
-	id: ID!
-	img: String
-	title: String!
+  description: String
+  id: ID!
+  img: String
+  title: String!
 }
 
-"""
-The User model
-"""
+"""The User model"""
 type User {
-	email: String!
-	id: ID!
-	username: String!
+  email: String!
+  id: ID!
+  username: String!
 }
 
 input UserInput {
-	email: String!
-	password: String!
-	username: String!
+  email: String!
+  password: String!
+  username: String!
 }
