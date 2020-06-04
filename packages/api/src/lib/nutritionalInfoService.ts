@@ -10,11 +10,8 @@ export interface IngredientJoined {
 	ingredientDetails: Ingredient;
 }
 
-export const isNutritionalValue = (value: any) => {
-	return (
-		value && value.externalId !== undefined && value.quantity !== undefined
-	);
-};
+export const isNutritionalValue = (value: any) =>
+	value && value.externalId !== undefined && value.quantity !== undefined;
 
 export const accumulateQuantity = (
 	accummulate: number,
@@ -38,16 +35,15 @@ export const buildNutritionalValue = (
 export const mergeNutritionalValues = (ingredientQuantity: number) => (
 	memo: any,
 	newValue: any
-) => {
-	return isNutritionalValue(newValue)
+) =>
+	isNutritionalValue(newValue)
 		? buildNutritionalValue(memo, newValue, ingredientQuantity)
 		: newValue;
-};
 
 export const buildNutritionalInfo = (
 	ingredients: Array<RecipeIngredient>
-): NutritionalInfoInterface | undefined => {
-	return ingredients.reduce(
+): NutritionalInfoInterface | undefined =>
+	ingredients.reduce(
 		(
 			memo: NutritionalInfoInterface | undefined,
 			ingredient: RecipeIngredient
@@ -56,9 +52,8 @@ export const buildNutritionalInfo = (
 				? assignWith(
 						memo,
 						ingredient.details.nutritionalInfo,
-						mergeNutritionalValues(ingredient?.quantity || 0)
+						mergeNutritionalValues(ingredient.quantity)
 				  )
 				: memo,
 		undefined
 	);
-};

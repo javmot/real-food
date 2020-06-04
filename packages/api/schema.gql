@@ -44,8 +44,8 @@ interface IFoodItem {
 The bedca Food Item Info
 """
 type Ingredient implements IFoodItem {
-	_id: ID!
 	externalId: ID!
+	id: ID!
 	name: String!
 	nutritionalInfo: NutritionalInfo!
 	recipes: [Recipe!]!
@@ -108,17 +108,17 @@ type NutritionalValue {
 }
 
 type Query {
-	foodGroup(input: String!): [FoodItem!]!
+	foodGroup(input: String!): [FoodItem!]
 	foodGroups: [FoodGroup!]!
 	ingredient(input: String!): Ingredient
 	ingredients: [Ingredient!]
-	me: User!
+	me: User
 	recipe(id: String!): Recipe
 	recipeByUserAndTitle(title: String!, username: String!): Recipe
 	recipeCategories: [RecipeCategory!]!
 	recipes(limit: Int = 5, skip: Int = 0): [Recipe!]!
 	recipesByCategory(input: String!): [Recipe!]!
-	recipeSteps(input: String!): [RecipeStep!]!
+	recipeSteps(input: String!): [RecipeStep!]
 	signin(input: UserInput!): User
 }
 
@@ -126,10 +126,10 @@ type Query {
 The Recipe model
 """
 type Recipe {
-	_id: ID!
 	category: RecipeCategory!
 	categoryId: String!
 	createdAt: DateTime!
+	id: ID!
 	ingredients: [RecipeIngredient!]!
 	nutritionalInfo: NutritionalInfo
 	servings: Int!
@@ -155,7 +155,6 @@ The bedca Food Item
 type RecipeIngredient implements IFoodItem {
 	details: Ingredient!
 	externalId: ID!
-	id: ID!
 	name: String!
 	quantity: Float!
 }

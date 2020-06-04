@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID } from "type-graphql";
+import { ObjectType, Field } from "type-graphql";
 import { ObjectId } from "mongodb";
 import { prop, arrayProp, getModelForClass, Ref } from "@typegoose/typegoose";
 import { NutritionalInfo } from "./NutritionalInfo";
@@ -7,8 +7,7 @@ import { Recipe } from "./Recipe";
 
 @ObjectType({ implements: IFoodItem, description: "The bedca Food Item Info" })
 export class Ingredient {
-	@Field((_type) => ID)
-	_id?: ObjectId;
+	_id!: ObjectId;
 
 	@prop({ required: true, unique: true })
 	externalId!: string;

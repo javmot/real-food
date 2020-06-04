@@ -1,4 +1,12 @@
-import { Resolver, Arg, Query, Ctx } from "type-graphql";
+import {
+	Resolver,
+	Arg,
+	Query,
+	Root,
+	Ctx,
+	FieldResolver,
+	ID,
+} from "type-graphql";
 import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { Context } from "../config/context";
 
@@ -14,6 +22,11 @@ export default class IngredientResolver {
 
 	@Query((_returns) => [Ingredient], { nullable: true })
 	ingredients() {
-		return IngredientModel.find().populate("recipes");
+		return IngredientModel.find().lean().populate("recipes");
+	}
+
+	@FieldResolver((_type) => ID)
+	id(@Root() ingredient: Ingredient) {
+		return ingredient._id;
 	}
 }

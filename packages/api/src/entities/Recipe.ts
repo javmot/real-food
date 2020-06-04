@@ -1,4 +1,4 @@
-import { ObjectType, Field, ID, Int } from "type-graphql";
+import { ObjectType, Field, Int } from "type-graphql";
 import { ObjectId } from "mongodb";
 import {
 	prop,
@@ -21,7 +21,6 @@ import { updateNutritionalInfo, uniqueIngredients } from "../lib/hooks";
 @pre("save", updateNutritionalInfo)
 @ObjectType({ description: "The Recipe model" })
 export class Recipe extends TimeStamps {
-	@Field((_type) => ID)
 	_id!: ObjectId;
 
 	@Field()
