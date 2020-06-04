@@ -1,8 +1,8 @@
-import { NutritionalValueInterface } from "../../entities/NutritionalValue";
+import { NutritionalValue } from "../../entities/NutritionalValue";
 
 export default function nutritionalValueMapper(
 	nutritionalValueBedca: any
-): NutritionalValueInterface {
+): NutritionalValue {
 	const value = Array.isArray(nutritionalValueBedca)
 		? nutritionalValueBedca[0]
 		: nutritionalValueBedca;

@@ -25,5 +25,3 @@ export class Ingredient {
 }
 
 export const IngredientModel = getModelForClass(Ingredient);
-
-export interface IngredientInterface extends Ingredient {}

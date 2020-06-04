@@ -19,5 +19,3 @@ export class NutritionalValue {
 	@prop()
 	unit?: string;
 }
-
-export interface NutritionalValueInterface extends NutritionalValue {}

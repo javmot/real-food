@@ -132,5 +132,3 @@ export class NutritionalInfo {
 	@prop({ required: true, _id: false })
 	zinc!: NutritionalValue;
 }
-
-export interface NutritionalInfoInterface extends NutritionalInfo {}

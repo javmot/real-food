@@ -19,5 +19,3 @@ export class User {
 }
 
 export const UserModel = getModelForClass(User);
-
-export interface UserInterface extends User {}

@@ -2,11 +2,11 @@ import "reflect-metadata";
 import faker from "faker";
 import { uniqueId, times } from "lodash";
 import { MongoClient } from "mongodb";
-import { UserInterface } from "./src/entities/User";
-import { RecipeCategoryInterface } from "./src/entities/RecipeCategory";
+import { User } from "./src/entities/User";
+import { RecipeCategory } from "./src/entities/RecipeCategory";
 import { DB_DEV } from "./src/config/db";
 
-function getFakeUser(): UserInterface {
+function getFakeUser(): User {
 	const username = uniqueId(faker.name.firstName());
 	return {
 		email: faker.internet.email(),
@@ -15,7 +15,7 @@ function getFakeUser(): UserInterface {
 	};
 }
 
-function getFakeCategory(): RecipeCategoryInterface {
+function getFakeCategory(): RecipeCategory {
 	return {
 		title: faker.commerce.department(),
 	};

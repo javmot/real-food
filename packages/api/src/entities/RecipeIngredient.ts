@@ -22,5 +22,3 @@ export class RecipeIngredient {
 	@prop({ ref: "Ingredient", required: true })
 	details!: Ref<Ingredient>;
 }
-
-export interface RecipeIngredientInterface extends RecipeIngredient {}

@@ -1,10 +1,10 @@
-import { IngredientInterface } from "../../entities/Ingredient";
-import { NutritionalInfoInterface } from "../../entities/NutritionalInfo";
+import { Ingredient } from "../../entities/Ingredient";
+import { NutritionalInfo } from "../../entities/NutritionalInfo";
 import nutritionalInfoMapper from "./nutritionalInfoMapper";
 
 export default function IngredientMapper(
 	nutritionalInfoBedca: any
-): IngredientInterface | null {
+): Ingredient | null {
 	if (!nutritionalInfoBedca) return null;
 
 	return {
@@ -24,7 +24,7 @@ export default function IngredientMapper(
 			);
 		},
 
-		get nutritionalInfo(): NutritionalInfoInterface {
+		get nutritionalInfo(): NutritionalInfo {
 			return (
 				nutritionalInfoBedca &&
 				nutritionalInfoMapper(nutritionalInfoBedca.foodvalue)

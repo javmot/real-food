@@ -1,7 +1,7 @@
 import { groupBy } from "lodash";
-import { NutritionalInfoInterface } from "../../entities/NutritionalInfo";
+import { NutritionalInfo } from "../../entities/NutritionalInfo";
 import nutritionalValueMapper from "./nutritionalValueMapper";
-import { NutritionalValueInterface } from "../../entities/NutritionalValue";
+import { NutritionalValue } from "../../entities/NutritionalValue";
 import {
 	ENERGY_ID,
 	FAT_ID,
@@ -37,7 +37,7 @@ import {
 	ZINC_ID,
 } from "../../config/constants";
 
-const defaultValue = (id: string): NutritionalValueInterface => ({
+const defaultValue = (id: string): NutritionalValue => ({
 	externalId: id,
 	name: "",
 	quantity: 0,
@@ -47,66 +47,66 @@ const defaultValue = (id: string): NutritionalValueInterface => ({
 const getNutritionalValue = (
 	groupedValues: any,
 	id: string
-): NutritionalValueInterface =>
+): NutritionalValue =>
 	groupedValues[id]
 		? nutritionalValueMapper(groupedValues[id])
 		: defaultValue(id);
 
 export default function nutritionalInfoMapper(
 	foodValuesBedca: any
-): NutritionalInfoInterface {
+): NutritionalInfo {
 	const groupedValues = groupBy(foodValuesBedca, (value) => value.c_id[0]);
 
 	return {
-		get energy(): NutritionalValueInterface {
+		get energy(): NutritionalValue {
 			return getNutritionalValue(groupedValues, ENERGY_ID);
 		},
 
-		get fat(): NutritionalValueInterface {
+		get fat(): NutritionalValue {
 			return getNutritionalValue(groupedValues, FAT_ID);
 		},
 
-		get protein(): NutritionalValueInterface {
+		get protein(): NutritionalValue {
 			return getNutritionalValue(groupedValues, PROTEIN_ID);
 		},
 
-		get carbohydrate(): NutritionalValueInterface {
+		get carbohydrate(): NutritionalValue {
 			return getNutritionalValue(groupedValues, CARBOHYDRATE_ID);
 		},
 
-		get fibre(): NutritionalValueInterface {
+		get fibre(): NutritionalValue {
 			return getNutritionalValue(groupedValues, FIBRE_ID);
 		},
 
-		get water(): NutritionalValueInterface {
+		get water(): NutritionalValue {
 			return getNutritionalValue(groupedValues, WATER_ID);
 		},
 
-		get alcohol(): NutritionalValueInterface {
+		get alcohol(): NutritionalValue {
 			return getNutritionalValue(groupedValues, ALCOHOL_ID);
 		},
 
-		get sugar(): NutritionalValueInterface {
+		get sugar(): NutritionalValue {
 			return getNutritionalValue(groupedValues, SUGAR_ID);
 		},
 
-		get monounsaturated(): NutritionalValueInterface {
+		get monounsaturated(): NutritionalValue {
 			return getNutritionalValue(groupedValues, MONOUNSATURATED_ID);
 		},
 
-		get polyunsaturated(): NutritionalValueInterface {
+		get polyunsaturated(): NutritionalValue {
 			return getNutritionalValue(groupedValues, POLYUNSATURATED_ID);
 		},
 
-		get saturated(): NutritionalValueInterface {
+		get saturated(): NutritionalValue {
 			return getNutritionalValue(groupedValues, SATURATED_ID);
 		},
 
-		get cholesterol(): NutritionalValueInterface {
+		get cholesterol(): NutritionalValue {
 			return getNutritionalValue(groupedValues, CHOLESTEROL_ID);
 		},
 
-		get trans(): NutritionalValueInterface {
+		get trans(): NutritionalValue {
 			return getNutritionalValue(groupedValues, TRANS_ID);
 		},
 

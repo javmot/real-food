@@ -66,5 +66,3 @@ export class Recipe extends TimeStamps {
 }
 
 export const RecipeModel = getModelForClass(Recipe);
-
-export interface RecipeInterface extends Recipe {}
