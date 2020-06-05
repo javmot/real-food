@@ -33,7 +33,7 @@ MongoClient.connect(
 		const usersCollection = db.collection("users");
 		const categoriesCollection = db.collection("recipecategories");
 
-		await usersCollection.insertMany(times(20).map(() => getFakeUser()));
+		await usersCollection.insertOne(getFakeUser());
 
 		await categoriesCollection.insertMany(
 			times(3).map(() => getFakeCategory())
