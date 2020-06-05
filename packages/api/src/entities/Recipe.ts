@@ -27,9 +27,9 @@ export class Recipe extends TimeStamps {
 	@prop({ required: true })
 	title!: string;
 
-	@Field()
+	@Field((_type) => Int)
 	@prop({ required: true })
-	time!: string;
+	time!: number;
 
 	@Field((_type) => Int)
 	@prop({ required: true })

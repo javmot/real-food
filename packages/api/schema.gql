@@ -10,7 +10,7 @@ input CreateRecipeCategoryInput {
 input CreateRecipeInput {
   categoryId: String!
   servings: Float!
-  time: String!
+  time: Float!
   title: String!
 }
 
@@ -122,7 +122,7 @@ type Recipe {
   nutritionalInfo: NutritionalInfo
   servings: Int!
   steps: [RecipeStep!]!
-  time: String!
+  time: Int!
   title: String!
   updatedAt: DateTime!
   user: User!

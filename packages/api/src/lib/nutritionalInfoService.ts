@@ -1,8 +1,8 @@
 import { assignWith } from "lodash";
 import { Ingredient } from "../entities/Ingredient";
-import { NutritionalInfoInterface } from "../entities/NutritionalInfo";
+import { NutritionalInfo } from "../entities/NutritionalInfo";
 import { RecipeIngredient } from "../entities/RecipeIngredient";
-import { NutritionalValueInterface } from "../entities/NutritionalValue";
+import { NutritionalValue } from "../entities/NutritionalValue";
 import { isDocument } from "@typegoose/typegoose";
 
 export interface IngredientJoined {
@@ -20,8 +20,8 @@ export const accumulateQuantity = (
 ): number => accummulate + (nutritionalQuantity * ingredientQuantity) / 100;
 
 export const buildNutritionalValue = (
-	memo: NutritionalValueInterface | undefined,
-	newValue: NutritionalValueInterface,
+	memo: NutritionalValue | undefined,
+	newValue: NutritionalValue,
 	ingredientQuantity: number
 ) => ({
 	...newValue,
@@ -42,12 +42,12 @@ export const mergeNutritionalValues = (ingredientQuantity: number) => (
 
 export const buildNutritionalInfo = (
 	ingredients: Array<RecipeIngredient>
-): NutritionalInfoInterface | undefined =>
+): NutritionalInfo | undefined =>
 	ingredients.reduce(
 		(
-			memo: NutritionalInfoInterface | undefined,
+			memo: NutritionalInfo | undefined,
 			ingredient: RecipeIngredient
-		): NutritionalInfoInterface | undefined =>
+		): NutritionalInfo | undefined =>
 			isDocument(ingredient.details)
 				? assignWith(
 						memo,

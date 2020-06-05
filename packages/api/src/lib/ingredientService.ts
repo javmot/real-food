@@ -1,5 +1,5 @@
 import { DocumentType, isRefType } from "@typegoose/typegoose";
-import { RecipeIngredientInterface } from "../entities/RecipeIngredient";
+import { RecipeIngredient } from "../entities/RecipeIngredient";
 import { Ingredient, IngredientModel } from "../entities/Ingredient";
 import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import BedcaAPI from "./BedcaAPI";
@@ -8,7 +8,7 @@ import { Recipe } from "../entities/Recipe";
 export const ingredientToRecipeIngredient = (
 	ingredient: DocumentType<Ingredient>,
 	ingredientInput: RecipeIngredientInput
-): RecipeIngredientInterface => ({
+): RecipeIngredient => ({
 	externalId: ingredient.externalId,
 	name: ingredient.name,
 	quantity: ingredientInput.quantity,
@@ -63,7 +63,7 @@ export const removeRecipeFromIngredient = async (
 	const ingredient = await ingredientQuery;
 	if (ingredient) {
 		ingredient.recipes = ingredient.recipes.filter((ingredientRecipe) => {
-			if (isRefType(ingredientRecipe)) {
+			if (recipe._id && isRefType(ingredientRecipe)) {
 				return !recipe._id.equals(ingredientRecipe);
 			}
 			return true;

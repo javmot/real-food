@@ -14,7 +14,7 @@ export class CreateAllRecipeInput
 	title!: string;
 
 	@Field()
-	time!: string;
+	time!: number;
 
 	@Field((_type) => String)
 	categoryId!: Ref<RecipeCategory>;
@@ -33,7 +33,7 @@ export class CreateRecipeInput implements Partial<Recipe> {
 	title!: string;
 
 	@Field()
-	time!: string;
+	time!: number;
 
 	@Field()
 	servings!: number;

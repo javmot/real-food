@@ -32,7 +32,12 @@ const main = async () => {
 	});
 	dbConnect();
 
-	const server = new ApolloServer({ schema, dataSources, context });
+	const server = new ApolloServer({
+		schema,
+		dataSources,
+		context,
+		tracing: !!process.env.SERVER_DEV,
+	});
 	const app = Express();
 	server.applyMiddleware({ app });
 	app.listen({ port: 9002 }, () =>
