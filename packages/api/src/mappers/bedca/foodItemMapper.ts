@@ -1,8 +1,6 @@
-import { FoodItemInterface } from "../entities/FoodItem";
+import { FoodItem } from "../../entities/FoodItem";
 
-export default function foodItemProxy(
-	foodItemBedca: any
-): FoodItemInterface | null {
+export default function foodItemMapper(foodItemBedca: any): FoodItem | null {
 	if (!foodItemBedca) return null;
 
 	return {

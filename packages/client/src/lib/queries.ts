@@ -1,7 +1,6 @@
 import { gql } from "@apollo/client";
 
 // FRAGMENTS
-
 const recipeFragments = {
 	base: gql`
 		fragment RecipeBase on Recipe {
@@ -19,12 +18,197 @@ const recipeFragments = {
 	`,
 	info: gql`
 		fragment RecipeInfo on Recipe {
-			info {
-				name
-				foodValues {
+			nutritionalInfo {
+				alcohol {
 					externalId
 					name
-					total
+					quantity
+					unit
+				}
+				calcium {
+					externalId
+					name
+					quantity
+					unit
+				}
+				carbohydrate {
+					externalId
+					name
+					quantity
+					unit
+				}
+				cholesterol {
+					externalId
+					name
+					quantity
+					unit
+				}
+				energy {
+					externalId
+					name
+					quantity
+					unit
+				}
+				fat {
+					externalId
+					name
+					quantity
+					unit
+				}
+				fibre {
+					externalId
+					name
+					quantity
+					unit
+				}
+				iodide {
+					externalId
+					name
+					quantity
+					unit
+				}
+				iron {
+					externalId
+					name
+					quantity
+					unit
+				}
+				magnesium {
+					externalId
+					name
+					quantity
+					unit
+				}
+				monounsaturated {
+					externalId
+					name
+					quantity
+					unit
+				}
+				phosphorus {
+					externalId
+					name
+					quantity
+					unit
+				}
+				polyunsaturated {
+					externalId
+					name
+					quantity
+					unit
+				}
+				potasium {
+					externalId
+					name
+					quantity
+					unit
+				}
+				protein {
+					externalId
+					name
+					quantity
+					unit
+				}
+				saturated {
+					externalId
+					name
+					quantity
+					unit
+				}
+				selenium {
+					externalId
+					name
+					quantity
+					unit
+				}
+				sodium {
+					externalId
+					name
+					quantity
+					unit
+				}
+				sugar {
+					externalId
+					name
+					quantity
+					unit
+				}
+				trans {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminA {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminB1 {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminB12 {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminB2 {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminB3 {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminB6 {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminB9 {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminC {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminD {
+					externalId
+					name
+					quantity
+					unit
+				}
+				vitaminE {
+					externalId
+					name
+					quantity
+					unit
+				}
+				water {
+					externalId
+					name
+					quantity
+					unit
+				}
+				zinc {
+					externalId
+					name
+					quantity
 					unit
 				}
 			}

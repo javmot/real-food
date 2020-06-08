@@ -1,23 +1,18 @@
-import { RecipeInterface } from "../../config/interfaces";
+import { Recipe, NutritionalValue } from "@real-food/api";
 import { InfoSummaryData } from "../InfoSummary";
-import { getCalories } from "../../lib/utils";
 
-const parseCalories: (arg: Array<any>) => InfoSummaryData | undefined = (
-	foodValues = []
-) => {
-	const calories = getCalories(foodValues);
-
+const parseCalories = (calories: NutritionalValue): InfoSummaryData => {
 	if (calories) {
 		return {
-			count: `${calories.total}`,
+			count: `${Math.round(calories.quantity)}`,
 			measure: "calorias",
 		};
 	}
 };
 
-const parseTime: (arg: string) => InfoSummaryData = (time = "") => {
+const parseTime = (time: number = 0): InfoSummaryData => {
 	return {
-		count: time.split(" ")[0],
+		count: `${time}`,
 		measure: "minutos",
 	};
 };
@@ -29,11 +24,11 @@ const parseServings: (arg: number) => InfoSummaryData = (servings) => {
 	};
 };
 
-export const getInfoSummaryProps: (
-	arg: RecipeInterface
-) => InfoSummaryData[] = (recipe) =>
+export const getInfoSummaryProps: (arg: Recipe) => InfoSummaryData[] = (
+	recipe
+) =>
 	[
-		parseCalories(recipe.info.foodValues),
+		parseCalories(recipe.nutritionalInfo.energy),
 		parseTime(recipe.time),
 		parseServings(recipe.servings),
 	].filter(Boolean);

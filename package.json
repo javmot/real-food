@@ -6,13 +6,17 @@
   ],
   "scripts": {
     "dev": "yarn theme-build && sleep 10 && lerna run dev --parallel",
+    "mock": "run-p api-mock client-dev",
     "build": "run-s theme-build client-build",
     "start": "yarn workspace @real-food/client start",
     "lint": "lerna run lint --parallel",
     "styleguide": "yarn workspace @real-food/theme styleguide",
     "theme-build": "yarn workspace @real-food/theme start &",
     "client-build": "yarn workspace @real-food/client build",
-    "api-start": "yarn workspace @real-food/api start"
+    "client-dev": "yarn theme-build && sleep 10 && yarn workspace @real-food/client dev",
+    "api-dev": "yarn workspace @real-food/api dev",
+    "api-start": "yarn workspace @real-food/api start",
+    "api-mock": "yarn workspace @real-food/api mock"
   },
   "devDependencies": {
     "husky": "^4.2.5",
@@ -21,7 +25,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run pre-commit"
+      "pre-commit": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents"
     }
   }
 }

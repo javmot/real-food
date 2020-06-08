@@ -1,21 +1,27 @@
-import { ObjectType, Field, ID } from "type-graphql";
-import { prop } from "@typegoose/typegoose";
+import { ObjectType, Field } from "type-graphql";
+import { ObjectId } from "mongodb";
+import { prop, arrayProp, getModelForClass, Ref } from "@typegoose/typegoose";
+import { NutritionalInfo } from "./NutritionalInfo";
 import { IFoodItem } from "./IFoodItem";
+import { Recipe } from "./Recipe";
 
-@ObjectType({ implements: IFoodItem, description: "The bedca Food Item" })
+@ObjectType({ implements: IFoodItem, description: "The bedca Food Item Info" })
 export class Ingredient {
-	@prop({ required: true })
+	_id?: ObjectId;
+
+	@prop({ required: true, unique: true })
 	externalId!: string;
 
 	@prop({ required: true })
 	name!: string;
 
-	@Field((_type) => ID)
-	id?: string;
+	@Field((_type) => NutritionalInfo)
+	@prop({ required: true, _id: false })
+	nutritionalInfo!: NutritionalInfo;
 
-	@Field()
-	@prop({ required: true })
-	quantity!: number;
+	@Field((_type) => [Recipe])
+	@arrayProp({ ref: "Recipe", required: true, default: [] })
+	recipes!: Ref<Recipe>[];
 }
 
-export interface IngredientInterface extends Ingredient {}
+export const IngredientModel = getModelForClass(Ingredient);

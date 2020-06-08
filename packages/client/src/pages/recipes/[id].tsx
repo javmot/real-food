@@ -2,16 +2,16 @@ import React from "react";
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import { Container, Divider } from "@real-food/theme";
+import { Recipe } from "@real-food/api";
 import { print } from "graphql/language/printer";
 import Head from "../../components/Head";
 import { RECIPES_IDS_QUERY, RECIPE_QUERY } from "../../lib/queries";
 import graphqlLittle from "../../lib/graphql-little";
-import { RecipeInterface } from "../../config/interfaces";
 import IngredientsSection from "../../components/IngredientsSection";
 import StepsSection from "../../components/StepsSection";
 import RecipeHead from "../../components/RecipeHead";
 
-function Recipe({ recipe, errors }: { recipe: RecipeInterface; errors: any }) {
+function RecipePage({ recipe, errors }: { recipe: Recipe; errors: any }) {
 	const { isFallback } = useRouter();
 
 	if (isFallback) {
@@ -30,10 +30,12 @@ function Recipe({ recipe, errors }: { recipe: RecipeInterface; errors: any }) {
 
 			<Container>
 				<RecipeHead recipe={recipe} />
-				<Divider />
-				<IngredientsSection ingredients={recipe.ingredients} />
-				<Divider />
-				<StepsSection steps={recipe.steps} />
+				<Container>
+					<Divider />
+					<IngredientsSection ingredients={recipe.ingredients} />
+					<Divider />
+					<StepsSection steps={recipe.steps} />
+				</Container>
 			</Container>
 		</div>
 	);
@@ -44,18 +46,22 @@ export async function getStaticProps({ params }) {
 		.request(print(RECIPE_QUERY), {
 			id: params.id,
 		})
-		.then(({ recipe, errors = false }) => ({
-			props: {
-				recipe,
-				errors,
-			},
-		}))
-		.catch(() => ({
-			props: {
-				recipe: null,
-				errors: true,
-			},
-		}));
+		.then(({ recipe, errors = false }) => {
+			return {
+				props: {
+					recipe,
+					errors,
+				},
+			};
+		})
+		.catch((e) => {
+			return {
+				props: {
+					recipe: null,
+					errors: true,
+				},
+			};
+		});
 }
 
 export async function getStaticPaths() {
@@ -69,4 +75,4 @@ export async function getStaticPaths() {
 	};
 }
 
-export default Recipe;
+export default RecipePage;

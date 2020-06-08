@@ -1,4 +1,3 @@
-import { groupBy, map } from "lodash";
 import {
 	Resolver,
 	Arg,
@@ -8,6 +7,7 @@ import {
 	FieldResolver,
 	Root,
 	Args,
+	ID,
 } from "type-graphql";
 import { Recipe, RecipeModel } from "../entities/Recipe";
 import {
@@ -17,73 +17,34 @@ import {
 import { User, UserModel } from "../entities/User";
 import { CreateRecipeInput } from "../inputs/RecipeInput";
 import { Context } from "../config/context";
-import BedcaAPI from "../dataSources/BedcaAPI";
-import { IngredientInput } from "../inputs/IngredientInput";
+import { RecipeIngredientInput } from "../inputs/RecipeIngredientInput";
 import { PaginationArgs } from "./PaginationArgs";
-
-const ADD = true;
-const REMOVE = false;
-
-const parseFoodValues = (ingredient: IngredientInput, add: boolean) => (
-	values: Array<any>
-) => {
-	const operator = add ? 1 : -1;
-	return values.map((value) => ({
-		...value,
-		total: operator * ((value.total * ingredient.quantity) / 100),
-	}));
-};
-
-const updateIngredient = async (
-	id: string,
-	ingredient: IngredientInput,
-	{ dataSources }: Context,
-	add: boolean = ADD
-) => {
-	const recipe = await RecipeModel.findOne({
-		_id: id,
-		// TODO: user,
-	});
-	if (!recipe) return null;
-
-	recipe.ingredients = add
-		? [...recipe.ingredients, ingredient]
-		: recipe.ingredients.filter((i) => {
-				return i.externalId !== ingredient.externalId;
-		  });
-
-	await recipe.save();
-
-	const { foodValues } = recipe.info;
-	const ingredientFoodValues = await requestIngredientValues(
-		ingredient,
-		add,
-		dataSources.bedcaAPI
-	);
-	const newFoodValues = mergeFoodValues([
-		...foodValues,
-		...ingredientFoodValues,
-	]);
-
-	recipe.info.foodValues = newFoodValues;
-
-	return recipe.save();
-};
+import {
+	getIngredient,
+	addRecipeToIngredient,
+	ingredientToRecipeIngredient,
+	removeRecipeFromIngredient,
+	getIngredientFromDB,
+} from "../lib/ingredientService";
+import { notNullableCollection } from "../lib/utils";
 
 @Resolver((_of) => Recipe)
 export default class RecipeResolver {
 	@Query((_returns) => [Recipe], { nullable: false })
 	recipes(@Args() { skip, limit }: PaginationArgs) {
+		// TODO: active ->  return RecipeModel.find({ active: true })
 		return RecipeModel.find()
+			.lean()
 			.sort([["updatedAt", -1]])
 			.skip(skip)
 			.limit(limit)
-			.exec();
+			.exec()
+			.then(notNullableCollection);
 	}
 
 	@Query((_returns) => Recipe, { nullable: true })
 	recipe(@Arg("id") id: string) {
-		return RecipeModel.findById(id).exec();
+		return RecipeModel.findById(id).lean().exec();
 	}
 
 	@Query((_returns) => Recipe, { nullable: true })
@@ -93,13 +54,17 @@ export default class RecipeResolver {
 	) {
 		const user = await UserModel.findOne({
 			username,
-		});
+		})
+			.lean()
+			.exec();
 
 		if (user) {
 			return RecipeModel.findOne({
 				userId: user._id,
 				title,
-			}).exec();
+			})
+				.lean()
+				.exec();
 		}
 
 		return null;
@@ -107,7 +72,10 @@ export default class RecipeResolver {
 
 	@Query((_returns) => [Recipe], { nullable: false })
 	recipesByCategory(@Arg("input") categoryId: string) {
-		return RecipeModel.find({ category_id: categoryId }).exec();
+		return RecipeModel.find({ category_id: categoryId })
+			.lean()
+			.exec()
+			.then(notNullableCollection);
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: false })
@@ -123,21 +91,40 @@ export default class RecipeResolver {
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
-	addIngredient(
+	async addIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: IngredientInput,
+		@Arg("ingredient") ingredientInput: RecipeIngredientInput,
 		@Ctx() ctx: Context
 	) {
-		return updateIngredient(id, ingredient, ctx, ADD);
+		const recipe = await findRecipe(id);
+		const ingredient = getIngredient(ingredientInput, ctx.dataSources.bedcaAPI);
+
+		recipe.ingredients.push(
+			ingredientToRecipeIngredient(await ingredient, ingredientInput)
+		);
+		const updatedRecipe = await recipe.save();
+
+		addRecipeToIngredient(ingredient, recipe);
+
+		return updatedRecipe;
 	}
 
 	@Mutation((_returns) => Recipe, { nullable: true })
-	removeIngredient(
+	async removeIngredient(
 		@Arg("id") id: string,
-		@Arg("ingredient") ingredient: IngredientInput,
-		@Ctx() ctx: Context
+		@Arg("ingredient") ingredientInput: RecipeIngredientInput
 	) {
-		return updateIngredient(id, ingredient, ctx, REMOVE);
+		const recipe = await findRecipe(id);
+
+		recipe.ingredients = recipe.ingredients.filter((i) => {
+			return i.externalId !== ingredientInput.externalId;
+		});
+
+		const updatedRecipe = await recipe.save();
+
+		removeRecipeFromIngredient(getIngredientFromDB(ingredientInput), recipe);
+
+		return updatedRecipe;
 	}
 
 	@FieldResolver((_type) => RecipeCategory)
@@ -149,34 +136,19 @@ export default class RecipeResolver {
 	user(@Root() recipe: any) {
 		return UserModel.findById(recipe.userId);
 	}
+
+	@FieldResolver((_type) => ID)
+	id(@Root() recipe: Recipe) {
+		return recipe._id;
+	}
 }
 
-function mergeFoodValues(foodValues: any) {
-	const totalReducer = (memo: any, value: any) => {
-		return {
-			...memo,
-			total: memo.total + value.total,
-		};
-	};
-	const grouped = groupBy(foodValues, (value) => value.externalId);
-
-	return map(grouped, (group) => {
-		return group.reduce(totalReducer, {
-			externalId: group[0].externalId,
-			name: group[0].name,
-			unit: group[0].unit,
-			total: 0,
-		});
+const findRecipe = async (id: string) => {
+	const recipe = await RecipeModel.findOne({
+		_id: id,
+		// TODO: user,
 	});
-}
+	if (!recipe) throw new Error("Recipe not found");
 
-function requestIngredientValues(
-	ingredient: IngredientInput,
-	add: boolean,
-	bedcaApi: BedcaAPI
-) {
-	return bedcaApi
-		.getFood(ingredient.externalId)
-		.then((foodInfo) => (foodInfo ? foodInfo.foodValues : []))
-		.then(parseFoodValues(ingredient, add));
-}
+	return recipe;
+};

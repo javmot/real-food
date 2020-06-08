@@ -7,5 +7,3 @@ export class FoodItem {
 
 	name!: string;
 }
-
-export interface FoodItemInterface extends FoodItem {}

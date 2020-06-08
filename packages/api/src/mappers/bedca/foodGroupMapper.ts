@@ -1,8 +1,6 @@
-import { FoodGroupInterface } from "../entities/FoodGroup";
+import { FoodGroup } from "../../entities/FoodGroup";
 
-export default function foodGroupProxy(
-	foodGroupBedca: any
-): FoodGroupInterface | null {
+export default function foodGroupMapper(foodGroupBedca: any): FoodGroup | null {
 	if (!foodGroupBedca) return null;
 
 	return {

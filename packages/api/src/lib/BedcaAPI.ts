@@ -1,9 +1,10 @@
 import { RESTDataSource } from "apollo-datasource-rest";
 import { parseStringPromise } from "xml2js";
 import { getGroupsQuery, getGroupQuery, getFoodQuery } from "./xmlQueries";
-import foodItemsProxy from "../proxies/foodItemsProxy";
-import foodGroupsProxy from "../proxies/foodGroupsProxy";
-import foodInfoProxy from "../proxies/foodInfoProxy";
+import foodItemsMapper from "../mappers/bedca/foodItemsMapper";
+import foodGroupsMapper from "../mappers/bedca/foodGroupsMapper";
+import ingredientMapper from "../mappers/bedca/ingredientMapper";
+import { log } from "./utils";
 
 const headers = {
 	"content-type": "text/xml",
@@ -23,21 +24,22 @@ export default class BedcaAPI extends RESTDataSource {
 		return this.post("procquery.php", getGroupsQuery(), { headers })
 			.then(parseStringPromise)
 			.then(parseResponse)
-			.then(foodGroupsProxy);
+			.then(foodGroupsMapper);
 	}
 
 	getFoodGroup(groupId: string) {
 		return this.post("procquery.php", getGroupQuery(groupId), { headers })
 			.then(parseStringPromise)
 			.then(parseResponse)
-			.then(foodItemsProxy);
+			.then(foodItemsMapper);
 	}
 
-	getFood(foodId: string) {
+	getIngredient(foodId: string) {
 		return this.post("procquery.php", getFoodQuery(foodId), { headers })
 			.then(parseStringPromise)
 			.then(parseResponse)
 			.then((food) => food[0])
-			.then(foodInfoProxy);
+			.then(log)
+			.then(ingredientMapper);
 	}
 }

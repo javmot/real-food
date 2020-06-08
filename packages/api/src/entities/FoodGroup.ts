@@ -8,5 +8,3 @@ export class FoodGroup {
 	@Field()
 	name!: string;
 }
-
-export interface FoodGroupInterface extends FoodGroup {}

@@ -4,13 +4,14 @@
 	"description": "> TODO: description",
 	"author": "Javier Mota <javimota83@gmail.com>",
 	"license": "ISC",
-	"main": "src/server.ts",
+	"main": "index.ts",
 	"scripts": {
-		"dev": "ts-node-dev src/server.ts",
+		"dev": "SERVER_DEV=true ts-node-dev src/server.ts",
+		"mock": "ts-node src/server-mock.ts",
 		"start": "ts-node src/server.ts",
-		"pre-commit": "yarn lint",
+		"precommit": "lint-staged",
 		"lint": "pretty-quick && eslint src/**/*.{ts,js} --cache --fix",
-		"reset-db": "ts-node src/config/db-seed.ts"
+		"reset-db": "ts-node dbSeed.ts"
 	},
 	"dependencies": {
 		"@typegoose/typegoose": "^7.0.0",
@@ -21,6 +22,7 @@
 		"class-validator": "^0.12.2",
 		"express": "^4.17.1",
 		"graphql": "^15.0.0",
+		"graphql-tools": "^6.0.7",
 		"lodash": "^4.17.15",
 		"mongoose": "^5.9.10",
 		"reflect-metadata": "^0.1.13",
@@ -34,7 +36,7 @@
 		"@types/bcrypt": "^3.0.0",
 		"@types/faker": "^4.1.11",
 		"@types/lodash": "^4.14.150",
-		"@types/mongoose": "^5.7.14",
+		"@types/mongoose": "^5.7.21",
 		"@types/xml2js": "^0.4.5",
 		"@typescript-eslint/eslint-plugin": "^2.30.0",
 		"@typescript-eslint/parser": "^2.30.0",

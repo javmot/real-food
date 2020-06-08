@@ -1,19 +1,22 @@
 import { Request, Response } from "express";
 import { IncomingHttpHeaders } from "http";
 import { DataSources } from "apollo-server-core/dist/graphqlOptions";
-import { FoodDataSources } from "../dataSources/FoodDataSource";
-import BedcaAPI from "../dataSources/BedcaAPI";
+import BedcaAPI from "../lib/BedcaAPI";
 import { UserModel } from "../entities/User";
+
+export interface IFoodDataSources {
+	bedcaAPI: BedcaAPI;
+}
 
 export interface Context {
 	headers: IncomingHttpHeaders;
 	user: string;
 	req: Request;
 	res: Response;
-	dataSources: FoodDataSources;
+	dataSources: IFoodDataSources;
 }
 
-export const dataSources = (): DataSources<FoodDataSources> => ({
+export const dataSources = (): DataSources<IFoodDataSources> => ({
 	bedcaAPI: new BedcaAPI(),
 });
 

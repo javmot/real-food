@@ -10,7 +10,7 @@ input CreateRecipeCategoryInput {
 input CreateRecipeInput {
   categoryId: String!
   servings: Float!
-  time: String!
+  time: Float!
   title: String!
 }
 
@@ -25,26 +25,10 @@ type FoodGroup {
   name: String!
 }
 
-"""The bedca Food Item Info"""
-type FoodInfo {
-  foodValues: [FoodValue!]!
-  id: ID!
-  name: String
-}
-
 """The bedca Food Item"""
 type FoodItem implements IFoodItem {
   externalId: ID!
   name: String!
-}
-
-"""The bedca Food Value"""
-type FoodValue {
-  externalId: String!
-  id: ID!
-  name: String
-  total: Float
-  unit: String
 }
 
 interface IFoodItem {
@@ -52,39 +36,79 @@ interface IFoodItem {
   name: String!
 }
 
-"""The bedca Food Item"""
+"""The bedca Food Item Info"""
 type Ingredient implements IFoodItem {
   externalId: ID!
   id: ID!
   name: String!
-  quantity: Float!
-}
-
-input IngredientInput {
-  externalId: String!
-  name: String!
-  quantity: Float!
+  nutritionalInfo: NutritionalInfo!
+  recipes: [Recipe!]!
 }
 
 type Mutation {
-  addIngredient(id: String!, ingredient: IngredientInput!): Recipe
+  addIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
   createRecipe(input: CreateRecipeInput!): Recipe!
   createRecipeCategory(input: CreateRecipeCategoryInput!): RecipeCategory!
-  removeIngredient(id: String!, ingredient: IngredientInput!): Recipe
+  removeIngredient(id: String!, ingredient: RecipeIngredientInput!): Recipe
   signup(input: UserInput!): User!
 }
 
+"""TO-DO"""
+type NutritionalInfo {
+  alcohol: NutritionalValue!
+  calcium: NutritionalValue!
+  carbohydrate: NutritionalValue!
+  cholesterol: NutritionalValue!
+  energy: NutritionalValue!
+  fat: NutritionalValue!
+  fibre: NutritionalValue!
+  iodide: NutritionalValue!
+  iron: NutritionalValue!
+  magnesium: NutritionalValue!
+  monounsaturated: NutritionalValue!
+  phosphorus: NutritionalValue!
+  polyunsaturated: NutritionalValue!
+  potasium: NutritionalValue!
+  protein: NutritionalValue!
+  saturated: NutritionalValue!
+  selenium: NutritionalValue!
+  sodium: NutritionalValue!
+  sugar: NutritionalValue!
+  trans: NutritionalValue!
+  vitaminA: NutritionalValue!
+  vitaminB1: NutritionalValue!
+  vitaminB12: NutritionalValue!
+  vitaminB2: NutritionalValue!
+  vitaminB3: NutritionalValue!
+  vitaminB6: NutritionalValue!
+  vitaminB9: NutritionalValue!
+  vitaminC: NutritionalValue!
+  vitaminD: NutritionalValue!
+  vitaminE: NutritionalValue!
+  water: NutritionalValue!
+  zinc: NutritionalValue!
+}
+
+"""TO-DO"""
+type NutritionalValue {
+  externalId: String!
+  name: String!
+  quantity: Float!
+  unit: String!
+}
+
 type Query {
-  foodGroup(input: String!): [FoodItem!]!
+  foodGroup(input: String!): [FoodItem!]
   foodGroups: [FoodGroup!]!
-  foodInfo(input: String!): FoodInfo
-  me: User!
+  ingredient(input: String!): Ingredient
+  ingredients: [Ingredient!]
+  me: User
   recipe(id: String!): Recipe
   recipeByUserAndTitle(title: String!, username: String!): Recipe
   recipeCategories: [RecipeCategory!]!
   recipes(limit: Int = 5, skip: Int = 0): [Recipe!]!
   recipesByCategory(input: String!): [Recipe!]!
-  recipeSteps(input: String!): [RecipeStep!]!
+  recipeSteps(input: String!): [RecipeStep!]
   signin(input: UserInput!): User
 }
 
@@ -94,11 +118,11 @@ type Recipe {
   categoryId: String!
   createdAt: DateTime!
   id: ID!
-  info: FoodInfo
-  ingredients: [Ingredient!]!
+  ingredients: [RecipeIngredient!]!
+  nutritionalInfo: NutritionalInfo
   servings: Int!
   steps: [RecipeStep!]!
-  time: String!
+  time: Int!
   title: String!
   updatedAt: DateTime!
   user: User!
@@ -109,6 +133,21 @@ type Recipe {
 type RecipeCategory {
   id: ID!
   title: String!
+}
+
+"""The bedca Food Item"""
+type RecipeIngredient implements IFoodItem {
+  details: Ingredient!
+  externalId: ID!
+  id: ID!
+  name: String!
+  quantity: Float!
+}
+
+input RecipeIngredientInput {
+  externalId: String!
+  name: String
+  quantity: Float!
 }
 
 """Steps Of the Recipe"""

@@ -1,19 +1,20 @@
 import { InputType, Field } from "type-graphql";
 import { Length } from "class-validator";
-import { Ref } from "../types";
 import { RecipeCategory } from "../entities/RecipeCategory";
 import { Recipe } from "../entities/Recipe";
 import { RecipeStepInput } from "./RecipeStepInput";
-import { IngredientInput } from "./IngredientInput";
+import { RecipeIngredientInput } from "./RecipeIngredientInput";
+import { Ref } from "@typegoose/typegoose";
 
 @InputType()
-export class CreateAllRecipeInput implements Partial<Recipe> {
+export class CreateAllRecipeInput
+	implements Partial<Omit<Recipe, "ingredients">> {
 	@Field()
 	@Length(1, 255)
 	title!: string;
 
 	@Field()
-	time!: string;
+	time!: number;
 
 	@Field((_type) => String)
 	categoryId!: Ref<RecipeCategory>;
@@ -21,8 +22,8 @@ export class CreateAllRecipeInput implements Partial<Recipe> {
 	@Field((_type) => RecipeStepInput)
 	steps!: RecipeStepInput[];
 
-	@Field((_type) => IngredientInput)
-	ingredients!: IngredientInput[];
+	@Field((_type) => RecipeIngredientInput)
+	ingredients!: RecipeIngredientInput[];
 }
 
 @InputType()
@@ -32,7 +33,7 @@ export class CreateRecipeInput implements Partial<Recipe> {
 	title!: string;
 
 	@Field()
-	time!: string;
+	time!: number;
 
 	@Field()
 	servings!: number;

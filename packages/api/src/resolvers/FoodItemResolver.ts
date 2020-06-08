@@ -4,12 +4,8 @@ import { Context } from "../config/context";
 
 @Resolver((_of) => FoodItem)
 export default class FoodItemResolver {
-	@Query((_returns) => [FoodItem], { nullable: false })
-	async foodGroup(
-		@Arg("input") groupId: string,
-		@Ctx() { dataSources }: Context
-	) {
-		const items = await dataSources.bedcaAPI.getFoodGroup(groupId);
-		return items;
+	@Query((_returns) => [FoodItem], { nullable: true })
+	foodGroup(@Arg("input") groupId: string, @Ctx() { dataSources }: Context) {
+		return dataSources.bedcaAPI.getFoodGroup(groupId);
 	}
 }
